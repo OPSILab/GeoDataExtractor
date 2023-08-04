@@ -26,8 +26,7 @@ public class FilterController {
 
         LOGGER.info("Filter list sent");
 
-        FilterService fs = new FilterService(new String("localhost"), new String("1026"));
-
+        FilterService fs = new FilterService(new String("orion.dev.ecosystem-urbanage.eu"), new String("443"));
 
         List<String> test = fs.getAllCityFilter(filter.getCityName());
 
