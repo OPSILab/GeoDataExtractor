@@ -39,6 +39,13 @@ public class GeojsonService implements GeojsonClient{
         //da sistemare
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
         headers.add("Accept", "application/geo+json");
+        headers.add("Content-Type", "application/json");
+        headers.add("Access-Control-Allow-Origin", "*");
+        headers.add("Access-Control-Allow-Headers", "*");
+        headers.add("Access-Control-Allow-Methods", "*");
+        
+        
+        
 
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 
