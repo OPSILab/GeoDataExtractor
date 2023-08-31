@@ -26,7 +26,7 @@ public class FilterController {
 
         LOGGER.info("Filter list sent");
 
-        FilterService fs = new FilterService(new String("orion.dev.ecosystem-urbanage.eu"), new String("443"));
+        FilterService fs = new FilterService(new String("orion.ecosystem-urbanage.eu"), new String("443"));
 
         List<String> test = fs.getAllCityFilter(filter.getCityName());
 

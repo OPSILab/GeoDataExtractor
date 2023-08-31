@@ -22,7 +22,7 @@ public class PointRadiusController {
     @PostMapping("/")
     public ResponseEntity<String> postPointRadius(@RequestBody PointRadius pointrad) throws JsonProcessingException {
 
-        GeojsonService gs = new GeojsonService(new String("orion.dev.ecosystem-urbanage.eu"), new String("443"));
+        GeojsonService gs = new GeojsonService(new String("orion.ecosystem-urbanage.eu"), new String("443"));
 
         List<String> test = gs.getFromPointRadius(pointrad);
 

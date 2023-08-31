@@ -1,5 +1,6 @@
 package eu.urbanage.GeoDataExtractor.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.urbanage.GeoDataExtractor.model.Filter;
 import eu.urbanage.GeoDataExtractor.model.Polygon;
@@ -22,18 +23,27 @@ import java.util.List;
 public class PolygonController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PolygonController.class);
+
     @PostMapping("/")
-    public ResponseEntity<String> postPolygon(@RequestBody Polygon polygon) {
+    public ResponseEntity<String> postPolygon(@RequestBody String polygonJson) {
 
-        LOGGER.info("Polygon sent");
+        LOGGER.info("Received polygon request: " + polygonJson);
 
-        GeojsonService gs = new GeojsonService(new String("orion.dev.ecosystem-urbanage.eu"), new String("443"));
+        try {
+            // Converting the JSON string back to a Polygon object
+            ObjectMapper objectMapper = new ObjectMapper();
+            Polygon polygon = objectMapper.readValue(polygonJson, Polygon.class);
+            
+            GeojsonService gs = new GeojsonService(new String("orion.ecosystem-urbanage.eu"), new String("443"));
+    
+            List<String> test = gs.getFromPolygon(polygon);
+    
+            return ResponseEntity.ok().body(test.toString());
 
-        List<String> test = gs.getFromPolygon(polygon);
-
-        return ResponseEntity.ok().body(test.toString());
-
+        } catch (JsonProcessingException e) {
+            LOGGER.error("Error processing polygon JSON", e);
+            return ResponseEntity.badRequest().body("Error processing polygon JSON");
+        }
     }
 
 }
-
