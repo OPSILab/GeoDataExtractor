@@ -29,7 +29,7 @@ public class Polygon {
 
         for (Coordinates cord : polygon){
 
-            polystring.append("[").append(valueOf(cord.getLatitude())).append(",").append(valueOf(cord.getLongitude())).append("],");
+            polystring.append("[").append(valueOf(cord.getLongitude())).append(",").append(valueOf(cord.getLatitude())).append("],");
 
         }
 

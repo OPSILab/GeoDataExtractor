@@ -40,7 +40,7 @@ public class PointRadius {
 
 
     public String getPointString() {
-        String coordinates = valueOf(point.getLatitude()) + "," + valueOf(point.getLongitude());
+        String coordinates = valueOf(point.getLongitude()) + "," + valueOf(point.getLatitude());
         return coordinates;
     }
 
