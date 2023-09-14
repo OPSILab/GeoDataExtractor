@@ -1,28 +1,20 @@
 package eu.urbanage.GeoDataExtractor.repository;
 
-import eu.urbanage.GeoDataExtractor.model.Polygon;
+import eu.urbanage.GeoDataExtractor.model.Document;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
+import org.springframework.stereotype.Repository;
 
-import java.util.Date;
-import java.util.List;
+import java.util.Optional;
 
-public interface ConfigRepository extends MongoRepository<Polygon, String> {
+@Repository
+public interface ConfigRepository extends MongoRepository<Document, String> {
 
+    Optional<Document> findById(String id);
 
-    /*
-    Optional<ShipInfo> findById(String id);
-
-    ShipInfo findByWharfId(String wharfId);
-
-    List<ShipInfo> findAllByWharfId(String wharfId);
 
     void deleteById(String id);
-    */
-    @Query("{ 'wharfId' : ?0, 'shipEta' : { $gte: ?1 }, 'shipEtd' : { $lte: ?2 } }")
-    List<Polygon> findShipsListBasedOnTime(String wharfId, Date eta, Date etd);
 
-    @Query("{ 'wharfId' : ?0, 'shipEta' : { $gte: ?1 } }")
-    List<Polygon> findShipsListBasedOnTime(String wharfId, Date eta);
+    Document save(Document doc);
+
 
 }

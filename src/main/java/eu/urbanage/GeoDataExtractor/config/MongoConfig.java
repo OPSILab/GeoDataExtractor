@@ -19,7 +19,7 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
     private String mongodbUrl;
     private String mongodbDatabase;
 
-    MongoConfig(@Value("${mongodb.url}") String mongodbUrl, @Value("${mongodb.database}") String mongodbDatabase) {
+    MongoConfig(@Value("mongodb://mongo") String mongodbUrl, @Value("URBANAGE") String mongodbDatabase) {
         this.mongodbUrl = mongodbUrl;
         this.mongodbDatabase = mongodbDatabase;
     }
