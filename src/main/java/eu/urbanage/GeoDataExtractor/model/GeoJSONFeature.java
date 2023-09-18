@@ -11,7 +11,7 @@ public class GeoJSONFeature {
 
     private String type;
     private Map<String, Object> properties = new HashMap<>();
-    private GeoNGSI geometry;
+
 
     @JsonProperty("type")
     public String getType() {
@@ -32,14 +32,7 @@ public class GeoJSONFeature {
         properties.put(key, value);
     }
 
-    @JsonProperty("geometry")
-    public GeoNGSI getGeometry() {
-        return geometry;
-    }
 
-    public void setGeometry(GeoNGSI geometry) {
-        this.geometry = geometry;
-    }
 
     // Optional: Additional methods or fields as needed
 
@@ -48,7 +41,6 @@ public class GeoJSONFeature {
         return "GeoJSONFeature{" +
                 "type='" + type + '\'' +
                 ", properties=" + properties +
-                ", geometry=" + geometry +
                 '}';
     }
 
