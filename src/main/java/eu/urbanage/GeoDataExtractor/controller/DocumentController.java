@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -32,6 +32,17 @@ public class DocumentController {
         return docJson.getId();
 
     }
+    @PostMapping("/update/")
+    public String updateDocument(@RequestBody Document docJson) {
+
+        LOGGER.info("Received document update: " + docJson.getName());
+
+        ds.updateDocument(docJson);
+
+        return docJson.getId();
+
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Document> getDocument(@PathVariable() String id) {
@@ -44,6 +55,24 @@ public class DocumentController {
 
         } catch (Exception e) {
             LOGGER.error(id, e);
+            return ResponseEntity.internalServerError().body(null);
+        }
+
+    }
+
+
+
+    @GetMapping("/getdocuments")
+    public ResponseEntity<List<Document>> getAllDocument() {
+
+
+        try {
+
+            return ds.findAllDocument();
+
+
+        } catch (Exception e) {
+            LOGGER.error(String.valueOf(e));
             return ResponseEntity.internalServerError().body(null);
         }
 

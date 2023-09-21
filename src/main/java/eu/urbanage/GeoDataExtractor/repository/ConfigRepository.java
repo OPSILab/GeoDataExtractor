@@ -12,9 +12,13 @@ public interface ConfigRepository extends MongoRepository<Document, String> {
     Optional<Document> findById(String id);
 
 
+    //Optional<Document> findAll();
+
+
     void deleteById(String id);
 
     Document save(Document doc);
+
 
 
 }

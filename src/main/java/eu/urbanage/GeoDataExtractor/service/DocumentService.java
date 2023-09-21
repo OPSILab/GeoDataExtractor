@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,6 +40,20 @@ public class DocumentService {
         }
     }
 
+    public ResponseEntity<List<Document>> findAllDocument() {
+
+        try {
+
+            List<Document> foundDocuments = dRepo.findAll();
+
+
+            return ResponseEntity.ok().body(foundDocuments);
+
+        } catch (Exception e) {
+            log.error("errore durante il reperimento dei dati");
+            return null;
+        }
+    }
 
     public ResponseEntity<String> deleteDocument(String id) {
 
@@ -66,6 +81,27 @@ public class DocumentService {
         }
     }
 
+    public ResponseEntity<Document> updateDocument(Document doc) {
+
+        String id = doc.getId();
+
+        try {
+
+            Optional<Document> foundDocument = dRepo.findById(id);
+
+
+            if (foundDocument.isPresent()) {
+                dRepo.deleteById(id);
+                dRepo.save(doc);
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.notFound().build();
+
+        } catch (Exception e) {
+            log.error("errore durante il reperimento dei dati {} a causa di: {}", id, e.getMessage());
+            return null;
+        }
+    }
 
 
 
