@@ -34,6 +34,40 @@ public class Document {
     @JsonProperty("geojson")
     private GeoJSONFeature geojson;
 
+    @JsonProperty("query")
+    private String query;
+
+
+    private String userEmail;
+
+    private String userID;
+
+
+
+
+    public String getQuery() {
+        return query;
+    }
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
     public String getId() {
         return id;
     }

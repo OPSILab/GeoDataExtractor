@@ -2,9 +2,12 @@ package eu.urbanage.GeoDataExtractor.service;
 
 import eu.urbanage.GeoDataExtractor.model.Document;
 import eu.urbanage.GeoDataExtractor.repository.ConfigRepository;
+import org.apache.catalina.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +43,28 @@ public class DocumentService {
         }
     }
 
+
+
+    public ResponseEntity<List<Document>> findAllDocumentOfUser(String userID) {
+
+        try {
+
+            List<Document> foundDocuments = dRepo.findByUserID(userID);
+
+
+
+            if (foundDocuments.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            return ResponseEntity.ok().body(foundDocuments);
+
+        } catch (Exception e) {
+            log.error("errore durante il reperimento dei dati");
+            return null;
+        }
+    }
+
     public ResponseEntity<List<Document>> findAllDocument() {
 
         try {
@@ -71,7 +96,6 @@ public class DocumentService {
     public Document addDocument(Document doc) {
 
         try {
-
             return dRepo.save(doc);
 
         } catch (Exception e) {
@@ -91,8 +115,8 @@ public class DocumentService {
 
 
             if (foundDocument.isPresent()) {
-                dRepo.deleteById(id);
-                dRepo.save(doc);
+
+                dRepo.insert(doc);
                 return ResponseEntity.noContent().build();
             }
             return ResponseEntity.notFound().build();
