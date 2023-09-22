@@ -104,6 +104,8 @@ public class GeojsonService implements GeojsonClient{
             String url = contexBrokerEndpoint + "?idPattern=urn:ngsi-ld:" + filter + ":" + data.getCityName() + ":*&georel=near;"+ distanceType+"=="+data.getRadius()+"&coords="+data.getPointString()+"&geometry=Point&limit=" + limit;
 
 
+            System.out.println(url);
+
             response = restTemplate.exchange(url
                     , HttpMethod.GET, requestEntity, String.class);
             List<String> responseArr = Arrays.asList(response.getBody());

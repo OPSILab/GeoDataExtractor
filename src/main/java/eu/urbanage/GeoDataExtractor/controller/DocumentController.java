@@ -96,6 +96,24 @@ public class DocumentController {
 
     }
 
+
+
+
+    @GetMapping("/getalldocuments")
+    public ResponseEntity<List<Document>> getAllDocuments() {
+
+
+        try {
+
+            return ds.findAllDocument();
+
+        } catch (Exception e) {
+            LOGGER.error(String.valueOf(e));
+            return ResponseEntity.internalServerError().body(null);
+        }
+
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteDocument(@PathVariable() String id) {
 
