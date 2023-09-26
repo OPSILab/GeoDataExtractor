@@ -34,22 +34,20 @@ public class Document {
     @JsonProperty("geojson")
     private GeoJSONFeature geojson;
 
-    @JsonProperty("query")
-    private String query;
+    @JsonProperty("layers")
+    private List<Object> layers;
 
 
     private String userEmail;
 
     private String userID;
 
-
-
-
-    public String getQuery() {
-        return query;
+    public List<Object> getLayers() {
+        return layers;
     }
-    public void setQuery(String query) {
-        this.query = query;
+
+    public void setLayers(List<Object> layers) {
+        this.layers = layers;
     }
 
     public String getUserEmail() {
