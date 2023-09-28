@@ -1,42 +1,35 @@
 package eu.urbanage.GeoDataExtractor.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import eu.urbanage.GeoDataExtractor.model.Filter;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import eu.urbanage.GeoDataExtractor.model.MultiPolygon;
 import eu.urbanage.GeoDataExtractor.model.Polygon;
-import eu.urbanage.GeoDataExtractor.service.FilterService;
 import eu.urbanage.GeoDataExtractor.service.GeojsonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api/polygondata")
-public class PolygonController {
+@RequestMapping("/api/multipolygondata")
+public class MultiPolygonController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PolygonController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MultiPolygonController.class);
 
     @PostMapping("/")
-    public ResponseEntity<String> postPolygon(@RequestBody String polygonJson) {
-
-        //LOGGER.info("Received polygon request: " + polygonJson);
+    public ResponseEntity<String> postMultiPolygon(@RequestBody String polygonJson) {
 
         try {
             // Converting the JSON string back to a Polygon object
             ObjectMapper objectMapper = new ObjectMapper();
-            Polygon polygon = objectMapper.readValue(polygonJson, Polygon.class);
+            MultiPolygon multiPolygon = objectMapper.readValue(polygonJson, MultiPolygon.class);
             
             GeojsonService gs = new GeojsonService(new String("orion.ecosystem-urbanage.eu"), new String("443"));
     
-            List<String> test = gs.getFromPolygon(polygon);
+            List<String> test = gs.getFromMultiPolygon(multiPolygon);
     
             return ResponseEntity.ok().body(test.toString());
 

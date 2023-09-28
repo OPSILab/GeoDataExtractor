@@ -22,12 +22,10 @@ import java.util.List;
 @RequestMapping("/api/document")
 public class DocumentController {
 
-
     private static final Logger LOGGER = LoggerFactory.getLogger(DocumentController.class);
 
     @Autowired
     private DocumentService ds;
-
 
     @Autowired
     private HttpServletRequest request;
@@ -48,6 +46,7 @@ public class DocumentController {
         return docJson.getId();
 
     }
+
     @PostMapping("/update/")
     public String updateDocument(@RequestBody Document docJson) {
 
@@ -63,11 +62,9 @@ public class DocumentController {
     @GetMapping("/{id}")
     public ResponseEntity<Document> getDocument(@PathVariable() String id) {
 
-
         try {
 
             return ds.findDocument(id);
-
 
         } catch (Exception e) {
             LOGGER.error(id, e);
@@ -77,10 +74,8 @@ public class DocumentController {
     }
 
 
-
     @GetMapping("/getdocuments")
     public ResponseEntity<List<Document>> getAllDocument() {
-
 
         try {
 
@@ -88,10 +83,11 @@ public class DocumentController {
 
             return ds.findAllDocumentOfUser(String.valueOf(userInfo.get("sub")));
 
-
         } catch (Exception e) {
             LOGGER.error(String.valueOf(e));
+
             return ResponseEntity.internalServerError().body(null);
+
         }
 
     }
@@ -101,7 +97,6 @@ public class DocumentController {
 
     @GetMapping("/getalldocuments")
     public ResponseEntity<List<Document>> getAllDocuments() {
-
 
         try {
 
@@ -116,7 +111,6 @@ public class DocumentController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteDocument(@PathVariable() String id) {
-
 
         try {
 

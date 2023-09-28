@@ -9,6 +9,16 @@ import static java.lang.String.valueOf;
 
 public class Polygon {
 
+
+    public Polygon() {
+    }
+
+    public Polygon(List<Coordinates> polygon, List<String> filter, String cityName) {
+        this.polygon = polygon;
+        this.filter = filter;
+        this.cityName = cityName;
+    }
+
     @JsonProperty("polygon")
     private List<Coordinates> polygon;
 
