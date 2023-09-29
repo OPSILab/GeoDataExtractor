@@ -9,7 +9,6 @@ import static java.lang.String.valueOf;
 
 public class Polygon {
 
-
     public Polygon() {
     }
 
