@@ -16,8 +16,8 @@ services:
     container_name: "geodata-be"
     build:
       context: .
-    depends_on:
-      - mongo
+    # depends_on:
+    #   - mongo
     restart: always
     ports:
       - '19099:9090'
