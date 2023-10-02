@@ -2,17 +2,17 @@ version: '3.5'
 services:
 
 
-  mongo:
-    image: mongo:4.2.11
-    restart: always
-    command: --nojournal
-    ports:
-      - 27027:27017
-    volumes:
-      - './mongo_data:/data/db'
+  # mongo:
+  #   image: mongo:4.2.11
+  #   restart: always
+  #   command: --nojournal
+  #   ports:
+  #     - 27027:27017
+  #   volumes:
+  #     - './mongo_data:/data/db'
 
   geodata-be:
-    image: geodata-be:main
+    # image: geodata-be:main
     container_name: "geodata-be"
     build:
       context: .
@@ -20,10 +20,22 @@ services:
       - mongo
     restart: always
     ports:
-      - '9090:9090'
+      - '19099:9090'
     environment:
       - SERVER_PORT=9090
       - HOST_ORION=orion.dev.ecosystem-urbanage.eu
       - PORT_ORION=443
       - MONGODB_URL=mongodb://mongo
+    networks:
+      - web
+    labels:
+      - traefik.http.routers.geodata-extractor.rule=Host(`geodata-extractor.${BASE_URL}`)
+      - traefik.http.routers.geodata-extractor.tls=true
+      - traefik.http.routers.geodata-extractor.tls.certresolver=lets-encrypt
+      - traefik.port=19099
+
+networks:
+  web:
+    external: true
+
 
