@@ -26,6 +26,17 @@ public class PointRadius {
     @JsonProperty("external")
     private boolean external;
 
+    public PointRadius(Coordinates point, String radius, List<String> filter, String cityName, boolean external) {
+        this.point = point;
+        this.radius = radius;
+        this.filter = filter;
+        this.cityName = cityName;
+        this.external = external;
+    }
+
+    public PointRadius() {
+    }
+
     public boolean isExternal() {
         return external;
     }
