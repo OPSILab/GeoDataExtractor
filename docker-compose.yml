@@ -33,6 +33,13 @@ services:
       - traefik.http.routers.geodata-extractor.tls=true
       - traefik.http.routers.geodata-extractor.tls.certresolver=lets-encrypt
       - traefik.port=19099
+      - "traefik.http.middlewares.geodataextractorcors.headers.accesscontrolallowmethods=GET,OPTIONS,PUT"
+      - "traefik.http.middlewares.geodataextractorcors.headers.accesscontrolallowheaders=*"
+      - "traefik.http.middlewares.geodataextractorcors.headers.accesscontrolalloworiginlist=https://geodata-extractor-ui.dev.ecosystem-urbanage.eu"
+      - "traefik.http.middlewares.geodataextractorcors.headers.accesscontrolmaxage=100"
+      - "traefik.http.middlewares.geodataextractorcors.headers.addvaryheader=true"
+      - "traefik.http.middlewares.geodataextractorcors.headers.customResponseHeaders.Access-Control-Allow-Origin=https://geodata-extractor-ui.dev.ecosystem-urbanage.eu"
+      - "traefik.http.routers.geodata-extractor.middlewares=geodataextractorcors"
 
 networks:
   web:
