@@ -1,0 +1,29 @@
+version: '3.5'
+services:
+
+
+  mongo:
+    image: mongo:4.2.11
+    restart: always
+    command: --nojournal
+    ports:
+      - 27027:27017
+    volumes:
+      - './mongo_data:/data/db'
+
+  geodata-be:
+    image: geodata-be:main
+    container_name: "geodata-be"
+    build:
+      context: .
+    depends_on:
+      - mongo
+    restart: always
+    ports:
+      - '9090:9090'
+    environment:
+      - SERVER_PORT=9090
+      - HOST_ORION=orion.dev.ecosystem-urbanage.eu
+      - PORT_ORION=443
+      - MONGODB_URL=mongodb://mongo
+

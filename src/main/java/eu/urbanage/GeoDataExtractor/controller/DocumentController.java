@@ -48,13 +48,11 @@ public class DocumentController {
     }
 
     @PostMapping("/update/")
-    public String updateDocument(@RequestBody Document docJson) {
+    public ResponseEntity<Document>  updateDocument(@RequestBody Document docJson) {
 
         LOGGER.info("Received document update: " + docJson.getName());
 
-        ds.updateDocument(docJson);
-
-        return docJson.getId();
+        return ds.updateDocument(docJson);
 
     }
 

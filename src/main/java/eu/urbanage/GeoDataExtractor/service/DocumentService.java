@@ -116,7 +116,7 @@ public class DocumentService {
 
             if (foundDocument.isPresent()) {
 
-                dRepo.insert(doc);
+                dRepo.save(doc);
                 return ResponseEntity.noContent().build();
             }
             return ResponseEntity.notFound().build();
