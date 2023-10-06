@@ -17,7 +17,7 @@ import java.util.List;
 
 
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://geodata-extractor-ui.dev.ecosystem-urbanage.eu")
 @RestController
 @RequestMapping("/api/document")
 public class DocumentController {

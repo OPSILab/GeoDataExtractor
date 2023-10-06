@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://geodata-extractor-ui.dev.ecosystem-urbanage.eu")
 @RestController
 @RequestMapping("/api/pointradiusdata")
 public class PointRadiusController {

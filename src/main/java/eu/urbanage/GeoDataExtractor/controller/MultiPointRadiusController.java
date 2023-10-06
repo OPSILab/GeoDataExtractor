@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://geodata-extractor-ui.dev.ecosystem-urbanage.eu")
 @RestController
 @RequestMapping("/api/multipointradiusdata")
 public class MultiPointRadiusController {
