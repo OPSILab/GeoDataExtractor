@@ -91,6 +91,19 @@ public class DocumentController {
     }
 
 
+    @GetMapping("/getalldocuments/{city}")
+    public ResponseEntity<List<Document>> getAllDocumentByCity(@PathVariable() String city) {
+
+        try {
+
+            return ds.findAllDocumentByCity(city);
+
+        } catch (Exception e) {
+            LOGGER.error(String.valueOf(e));
+            return ResponseEntity.internalServerError().body(null);
+        }
+
+    }
 
 
     @GetMapping("/getalldocuments")

@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,10 +52,11 @@ public class DocumentService {
 
             List<Document> foundDocuments = dRepo.findByUserID(userID);
 
-
-
             if (foundDocuments.isEmpty()) {
-                return ResponseEntity.notFound().build();
+
+                List<Document> emptyList = Collections.emptyList();
+
+                return ResponseEntity.ok(emptyList);
             }
 
             return ResponseEntity.ok().body(foundDocuments);
@@ -64,6 +66,27 @@ public class DocumentService {
             return null;
         }
     }
+
+
+
+    public ResponseEntity<List<Document>> findAllDocumentByCity(String city) {
+
+        try {
+
+            List<Document> foundDocuments = dRepo.findBycityName(city);
+
+
+            return ResponseEntity.ok().body(foundDocuments);
+
+        } catch (Exception e) {
+            log.error("errore durante il reperimento dei dati");
+            return null;
+        }
+    }
+
+
+
+
 
     public ResponseEntity<List<Document>> findAllDocument() {
 

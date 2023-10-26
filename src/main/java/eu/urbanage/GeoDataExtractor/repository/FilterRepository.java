@@ -1,7 +1,8 @@
 package eu.urbanage.GeoDataExtractor.repository;
 
+
 import eu.urbanage.GeoDataExtractor.model.Document;
-import org.springframework.data.mongodb.core.query.Query;
+import eu.urbanage.GeoDataExtractor.model.FilterDocument;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,15 +10,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ConfigRepository extends MongoRepository<Document, String> {
+public interface FilterRepository extends MongoRepository<FilterDocument, String> {
 
-    Optional<Document> findById(String id);
+    Optional<FilterDocument> findById(String id);
 
     void deleteById(String id);
 
-    Document save(Document doc);
+    FilterDocument save(FilterDocument fdoc);
 
-    List<Document> findByUserID(String userID);
 
-    List<Document> findBycityName(String city);
+    List<FilterDocument> findBycityName(String city);
 }
