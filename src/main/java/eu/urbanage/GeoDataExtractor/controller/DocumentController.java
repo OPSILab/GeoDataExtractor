@@ -52,6 +52,12 @@ public class DocumentController {
 
         LOGGER.info("Received document update: " + docJson.getName());
 
+        JsonNode userInfo = decodeUserTokenToJson(getAuthToken());
+
+        docJson.setUserID(String.valueOf(userInfo.get("sub")));
+
+        docJson.setUserEmail(String.valueOf(userInfo.get("email")));
+
         return ds.updateDocument(docJson);
 
     }
