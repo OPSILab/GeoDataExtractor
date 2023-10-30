@@ -1,8 +1,10 @@
 package eu.urbanage.GeoDataExtractor.config;
 
 
+import eu.urbanage.GeoDataExtractor.Job.FilterJob;
 import eu.urbanage.GeoDataExtractor.Job.TestJob;
 import org.quartz.JobDetail;
+import org.quartz.SimpleTrigger;
 import org.quartz.Trigger;
 import org.quartz.spi.TriggerFiredBundle;
 import org.springframework.context.ApplicationContext;
@@ -33,8 +35,9 @@ public class QuartzConfig {
 
         simpleTriggerFactory.setJobDetail(jobDetail);
         simpleTriggerFactory.setStartDelay(0);
-        simpleTriggerFactory.setRepeatInterval(10);
-        simpleTriggerFactory.setRepeatCount(10);
+        simpleTriggerFactory.setRepeatInterval(3 * 60 * 60 * 1000); // 3 ore in millisecondi
+        simpleTriggerFactory.setRepeatCount(SimpleTrigger.REPEAT_INDEFINITELY); // Ripeti all'infinito
+
         return simpleTriggerFactory;
     }
 
@@ -43,7 +46,7 @@ public class QuartzConfig {
 
         JobDetailFactoryBean jobDetailFactory
                 = new JobDetailFactoryBean();
-        jobDetailFactory.setJobClass(TestJob.class);
+        jobDetailFactory.setJobClass(FilterJob.class);
         return jobDetailFactory;
     }
 

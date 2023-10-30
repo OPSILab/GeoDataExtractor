@@ -1,6 +1,8 @@
 package eu.urbanage.GeoDataExtractor.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.urbanage.GeoDataExtractor.model.Document;
+import eu.urbanage.GeoDataExtractor.model.FilterDetail;
 import eu.urbanage.GeoDataExtractor.model.FilterDocument;
 import eu.urbanage.GeoDataExtractor.repository.ConfigRepository;
 import eu.urbanage.GeoDataExtractor.repository.FilterRepository;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +27,7 @@ public class FilterDocumentService {
     protected FilterRepository fRepo;
 
 
-    public ResponseEntity<List<String>> findFilterByCity(String city) {
+    public ResponseEntity<FilterDetail> findFilterByCity(String city) {
 
         try {
 
@@ -32,7 +35,11 @@ public class FilterDocumentService {
 
             List<String> foundFilter = foundFilters.get(0).getFilter();
 
-            return ResponseEntity.ok().body(foundFilter);
+            FilterDetail responseFilter = new FilterDetail();
+
+            responseFilter.setFilter(foundFilter);
+
+            return ResponseEntity.ok().body(responseFilter);
 
         } catch (Exception e) {
             log.error("errore durante il reperimento dei dati");
@@ -62,5 +69,37 @@ public class FilterDocumentService {
 
             fRepo.save(updatedRecord);
             }
+
+    public void checkFilter() throws JsonProcessingException {
+
+        List<String> city_list = getCityList();
+
+        for (String city : city_list){
+
+            FilterService fs = new FilterService(new String("orion.ecosystem-urbanage.eu"), new String("443"));
+
+            List<String> filter_list = fs.getAllCityFilter(city);
+
+            updateFilter(filter_list, city);
+
+        }
+
+    }
+    public ResponseEntity<FilterDetail> retriveFilterList(String city){
+
+        return findFilterByCity(city);
+
+    }
+
+    private List<String> getCityList (){
+        List<String> stringList = new ArrayList<>();
+        stringList.add("Helsinki");
+        stringList.add("Flanders");
+        stringList.add("Santander");
+
+        System.out.println(stringList);
+
+        return stringList;
+    }
 
     }
