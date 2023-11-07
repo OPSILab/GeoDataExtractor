@@ -43,7 +43,23 @@ public class DocumentService {
             return null;
         }
     }
+    public Document findDocumentObj(String id) {
 
+        try {
+
+            Optional<Document> foundDocument = dRepo.findById(id);
+
+
+            if (foundDocument.isPresent()) {
+                return foundDocument.get();
+            }
+            return null;
+
+        } catch (Exception e) {
+            log.error("errore durante il reperimento dei dati {} a causa di: {}", id, e.getMessage());
+            return null;
+        }
+    }
 
 
     public ResponseEntity<List<Document>> findAllDocumentOfUser(String userID) {

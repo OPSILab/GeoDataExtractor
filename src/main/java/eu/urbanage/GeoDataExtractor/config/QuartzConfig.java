@@ -1,93 +1,54 @@
 package eu.urbanage.GeoDataExtractor.config;
 
-
 import eu.urbanage.GeoDataExtractor.Job.FilterJob;
-import eu.urbanage.GeoDataExtractor.Job.TestJob;
-import org.quartz.JobDetail;
-import org.quartz.SimpleTrigger;
-import org.quartz.Trigger;
-import org.quartz.spi.TriggerFiredBundle;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Configuration;
+import eu.urbanage.GeoDataExtractor.Job.UserJob;
+import org.quartz.*;
 import org.springframework.context.annotation.Bean;
-import org.springframework.scheduling.quartz.JobDetailFactoryBean;
-import org.springframework.scheduling.quartz.SchedulerFactoryBean;
-import org.springframework.scheduling.quartz.SimpleTriggerFactoryBean;
-import org.springframework.scheduling.quartz.SpringBeanJobFactory;
+import org.springframework.context.annotation.Configuration;
+
 
 @Configuration
 public class QuartzConfig {
 
-    /**
-     ----------------------------
-     To complete this config class
-     we will add some more code at this location.
-     First look at the below lines and understand
-     ----------------------------
-     **/
+
 
     @Bean
-    public SimpleTriggerFactoryBean
-    createSimpleTriggerFactoryBean(JobDetail jobDetail)
-    {
-        SimpleTriggerFactoryBean simpleTriggerFactory
-                = new SimpleTriggerFactoryBean();
-
-        simpleTriggerFactory.setJobDetail(jobDetail);
-        simpleTriggerFactory.setStartDelay(0);
-        simpleTriggerFactory.setRepeatInterval(3 * 60 * 60 * 1000); // 3 ore in millisecondi
-        simpleTriggerFactory.setRepeatCount(SimpleTrigger.REPEAT_INDEFINITELY); // Ripeti all'infinito
-
-        return simpleTriggerFactory;
+    public JobDetail userJobDetail() {
+        return JobBuilder.newJob(UserJob.class)
+                .withIdentity("userJob")
+                .storeDurably()
+                .build();
     }
 
     @Bean
-    public JobDetailFactoryBean createJobDetailFactoryBean(){
-
-        JobDetailFactoryBean jobDetailFactory
-                = new JobDetailFactoryBean();
-        jobDetailFactory.setJobClass(FilterJob.class);
-        return jobDetailFactory;
-    }
-
-    final ApplicationContext applicationContext;
-
-    public QuartzConfig(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
+    public Trigger userJobTrigger() {
+        return TriggerBuilder.newTrigger()
+                .forJob(userJobDetail())
+                .withIdentity("userJobTrigger")
+                .withSchedule(SimpleScheduleBuilder.simpleSchedule()
+                        .withMisfireHandlingInstructionNowWithExistingCount() // Esegui subito all'avvio
+                        .withIntervalInMinutes(5)) // Ogni 5 minuti dopo il primo avvio
+                .build();
     }
 
     @Bean
-    SpringBeanJobFactory createSpringBeanJobFactory (){
-
-        return new SpringBeanJobFactory() {
-
-            @Override
-            protected Object createJobInstance
-                    (final TriggerFiredBundle bundle) throws Exception {
-
-                final Object job = super.createJobInstance(bundle);
-
-                applicationContext
-                        .getAutowireCapableBeanFactory()
-                        .autowireBean(job);
-
-                return job;
-            }
-        };
+    public JobDetail filterJobDetail() {
+        return JobBuilder.newJob(FilterJob.class)
+                .withIdentity("filterJob")
+                .storeDurably()
+                .build();
     }
+
     @Bean
-    public SchedulerFactoryBean createSchedulerFactory
-            (SpringBeanJobFactory springBeanJobFactory, Trigger trigger) {
-
-        SchedulerFactoryBean schedulerFactory
-                = new SchedulerFactoryBean();
-        schedulerFactory.setAutoStartup(true);
-        schedulerFactory.setWaitForJobsToCompleteOnShutdown(true);
-        schedulerFactory.setTriggers(trigger);
-
-        springBeanJobFactory.setApplicationContext(applicationContext);
-        schedulerFactory.setJobFactory(springBeanJobFactory);
-
-        return schedulerFactory;
+    public Trigger filterJobTrigger() {
+        return TriggerBuilder.newTrigger()
+                .forJob(filterJobDetail())
+                .withIdentity("filterJobTrigger")
+                .withSchedule(SimpleScheduleBuilder.simpleSchedule()
+                        .withMisfireHandlingInstructionNowWithExistingCount() // Esegui subito all'avvio
+                        .withIntervalInMinutes(60)) // Ogni 60 minuti dopo il primo avvio
+                .build();
     }
+
+
 }

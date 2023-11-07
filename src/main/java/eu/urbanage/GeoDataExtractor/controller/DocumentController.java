@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.urbanage.GeoDataExtractor.model.Document;
 import eu.urbanage.GeoDataExtractor.service.DocumentService;
 import jakarta.servlet.http.HttpServletRequest;
+import org.quartz.JobDetail;
+import org.quartz.Trigger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 
 
@@ -40,6 +43,8 @@ public class DocumentController {
         docJson.setUserID(String.valueOf(userInfo.get("sub")));
 
         docJson.setUserEmail(String.valueOf(userInfo.get("email")));
+
+        docJson.setDateCreation(new Date());
 
         ds.addDocument(docJson);
 
@@ -172,5 +177,6 @@ public class DocumentController {
 
 
         }
+
 
 }

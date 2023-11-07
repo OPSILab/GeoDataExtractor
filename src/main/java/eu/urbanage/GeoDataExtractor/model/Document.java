@@ -7,11 +7,11 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import java.util.Date;
 import java.util.List;
 
 
 public class Document {
-
 
     @Id
     @JsonProperty()
@@ -19,7 +19,6 @@ public class Document {
 
     @JsonProperty("city")
     private String cityName;
-
 
     @JsonProperty("filter")
     private List<String> filter;
@@ -30,13 +29,13 @@ public class Document {
     @JsonProperty("description")
     private String description;
 
-
     @JsonProperty("geojson")
     private GeoJSONFeature geojson;
 
     @JsonProperty("layers")
     private List<Object> layers;
 
+    private Date dateCreation;
 
     private String userEmail;
 
@@ -112,5 +111,13 @@ public class Document {
 
     public void setGeojson(GeoJSONFeature geojson) {
         this.geojson = geojson;
+    }
+
+    public Date getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
     }
 }

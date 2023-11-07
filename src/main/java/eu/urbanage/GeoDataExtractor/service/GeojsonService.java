@@ -107,10 +107,9 @@ public class GeojsonService implements GeojsonClient{
             }
         }
 
-
-
         return GeoData;
     }
+
     @Override
     public List<String> getFromPointRadius(PointRadius data) throws JsonProcessingException {
         int limit = 1000;
