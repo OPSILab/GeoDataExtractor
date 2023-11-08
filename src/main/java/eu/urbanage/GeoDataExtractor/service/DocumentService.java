@@ -1,6 +1,7 @@
 package eu.urbanage.GeoDataExtractor.service;
 
 import eu.urbanage.GeoDataExtractor.model.Document;
+import eu.urbanage.GeoDataExtractor.model.GeoJSONFeature;
 import eu.urbanage.GeoDataExtractor.repository.ConfigRepository;
 import org.apache.catalina.User;
 import org.slf4j.Logger;
@@ -35,6 +36,26 @@ public class DocumentService {
 
             if (foundDocument.isPresent()) {
                 return ResponseEntity.ok().body(foundDocument.get());
+            }
+            return ResponseEntity.notFound().build();
+
+        } catch (Exception e) {
+            log.error("errore durante il reperimento dei dati {} a causa di: {}", id, e.getMessage());
+            return null;
+        }
+    }
+
+
+    public ResponseEntity<GeoJSONFeature> findDocumentGeojson(String id) {
+
+        try {
+
+            Optional<Document> foundDocument = dRepo.findById(id);
+
+
+            if (foundDocument.isPresent()) {
+
+                return ResponseEntity.ok().body(foundDocument.get().getGeojson());
             }
             return ResponseEntity.notFound().build();
 

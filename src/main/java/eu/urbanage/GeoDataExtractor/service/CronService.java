@@ -46,7 +46,27 @@ public class CronService {
 
     }
 
+    public ResponseEntity<Cron> updateCron(Cron cron) {
 
+        String id = cron.getId();
+
+        try {
+
+            Optional<Cron> foundCron = cRepo.findById(id);
+
+
+            if (foundCron.isPresent()) {
+
+                cRepo.save(cron);
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.notFound().build();
+
+        } catch (Exception e) {
+            log.error("errore durante il reperimento dei dati {} a causa di: {}", id, e.getMessage());
+            return null;
+        }
+    }
 
     public ResponseEntity<Cron> findCron(String id) {
 

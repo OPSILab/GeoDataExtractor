@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.urbanage.GeoDataExtractor.model.Document;
+import eu.urbanage.GeoDataExtractor.model.GeoJSONFeature;
 import eu.urbanage.GeoDataExtractor.service.DocumentService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.quartz.JobDetail;
@@ -116,6 +117,19 @@ public class DocumentController {
 
     }
 
+    @GetMapping("/getGeojson/{id}")
+    public ResponseEntity<GeoJSONFeature> getGeojsonByID(@PathVariable() String id) {
+
+        try {
+
+            return ds.findDocumentGeojson(id);
+
+        } catch (Exception e) {
+            LOGGER.error(String.valueOf(e));
+            return ResponseEntity.internalServerError().body(null);
+        }
+
+    }
 
     @GetMapping("/getalldocuments")
     public ResponseEntity<List<Document>> getAllDocuments() {

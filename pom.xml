@@ -78,6 +78,17 @@
 			<optional>true</optional>
 		</dependency>
 
+		<dependency>
+			<groupId>javax.json</groupId>
+			<artifactId>javax.json-api</artifactId>
+			<version>1.1.4</version> <!-- Usa la versione più recente disponibile -->
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.json</artifactId>
+			<version>1.1.4</version> <!-- Usa la versione più recente disponibile -->
+		</dependency>
+
 	</dependencies>
 
 	<build>
