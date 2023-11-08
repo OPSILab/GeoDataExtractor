@@ -35,16 +35,17 @@ public class IDRAService{
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        String downloadURL = "http://127.0.0.1:9090/api/document/getGeojson/" + postDocument.getId();
+        String downloadURL = "https://geodata-extractor.dev.ecosystem-urbanage.eu/api/document/getGeojson/" + postDocument.getId();
 
         String jsonBody = createJsonDistribution(postDocument.getId(),postDocument.getCityName(),postDocument.getDescription(), downloadURL).toString();
 
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(distributionIDR, new HttpEntity<>(jsonBody, headers), String.class);
 
-        String datasetId = "Helsinki:" + postDocument.getId();
+        String datasetId = postDocument.getCityName() + ":" + postDocument.getId();
         String jsonBodyDataset = createJsonDataset(datasetId,postDocument.getCityName(), postDocument.getDescription(), postDocument.getId()).toString();
 
-        ResponseEntity<String> responseEntityDataset = restTemplate.postForEntity(distributionIDR, new HttpEntity<>(jsonBodyDataset, headers), String.class);
+        String datasetIDR = "https://ngsi-broker.dev.ecosystem-urbanage.eu/api/dataset";
+        ResponseEntity<String> responseEntityDataset = restTemplate.postForEntity(datasetIDR, new HttpEntity<>(jsonBodyDataset, headers), String.class);
 
     }
 
