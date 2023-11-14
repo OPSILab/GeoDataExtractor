@@ -34,7 +34,7 @@ public class CronController {
 
 
     @PostMapping("/set/")
-    public String postDocument(@RequestBody Cron cronJson) {
+    public String postCron(@RequestBody Cron cronJson) {
 
 
         String document_id = cronJson.getDocument_id();
@@ -52,7 +52,25 @@ public class CronController {
         return cs.addCron(cronJson).getId();
 
     }
+    @PostMapping("/update/")
+    public ResponseEntity<Cron>  updateCron(@RequestBody Cron cronJson) {
 
+
+        String document_id = cronJson.getDocument_id();
+
+        Document ref_document = ds.findDocument(document_id).getBody();
+
+        cronJson.setCity(ref_document.getCityName());
+
+        cronJson.setFilter(ref_document.getFilter());
+
+        cronJson.setData_created(new Date());
+
+        cronJson.setData_last_execution(new Date());
+
+        return cs.updateCron(cronJson);
+
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Cron> getCron(@PathVariable() String id) {
@@ -69,7 +87,20 @@ public class CronController {
 
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteCron(@PathVariable() String id) {
 
+        try {
+
+            return cs.deleteCron(id);
+
+
+        } catch (Exception e) {
+            LOGGER.error(id, e);
+            return ResponseEntity.internalServerError().body(null);
+        }
+
+    }
 
 
 }

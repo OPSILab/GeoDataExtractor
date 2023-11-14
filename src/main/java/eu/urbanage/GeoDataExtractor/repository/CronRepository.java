@@ -10,7 +10,6 @@ import java.util.Optional;
 public interface CronRepository extends MongoRepository<Cron, String> {
 
     Optional<Cron> findById(String id);
-
     void deleteById(String id);
 
 }

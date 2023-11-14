@@ -86,7 +86,18 @@ public class CronService {
         }
     }
 
+    public ResponseEntity<String> deleteCron(String id) {
 
+        try {
+
+            cRepo.deleteById(id);
+
+            return ResponseEntity.noContent().build();
+
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 
 
