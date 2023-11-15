@@ -41,6 +41,8 @@ public class Document {
 
     private String userID;
 
+    private String cron_id;
+
     public List<Object> getLayers() {
         return layers;
     }
@@ -113,6 +115,14 @@ public class Document {
         this.geojson = geojson;
     }
 
+    public String getCron_id() {
+        return cron_id;
+    }
+
+    public void setCron_id(String cron_id) {
+        this.cron_id = cron_id;
+    }
+
     public Date getDateCreation() {
         return dateCreation;
     }
@@ -121,3 +131,5 @@ public class Document {
         this.dateCreation = dateCreation;
     }
 }
+
+

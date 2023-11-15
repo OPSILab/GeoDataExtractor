@@ -49,7 +49,13 @@ public class CronController {
 
         cronJson.setData_last_execution(new Date());
 
-        return cs.addCron(cronJson).getId();
+        String cron_id = cs.addCron(cronJson).getId();
+
+        ref_document.setCron_id(cron_id);
+
+        ds.updateDocument(ref_document);
+
+        return cron_id;
 
     }
     @PostMapping("/update/")

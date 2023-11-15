@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.urbanage.GeoDataExtractor.model.Document;
 import eu.urbanage.GeoDataExtractor.model.GeoJSONFeature;
+import eu.urbanage.GeoDataExtractor.service.CronService;
 import eu.urbanage.GeoDataExtractor.service.DocumentService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.quartz.JobDetail;
@@ -30,6 +31,9 @@ public class DocumentController {
 
     @Autowired
     private DocumentService ds;
+
+    @Autowired
+    private CronService cs;
 
     @Autowired
     private HttpServletRequest request;
@@ -73,6 +77,8 @@ public class DocumentController {
     public ResponseEntity<Document> getDocument(@PathVariable() String id) {
 
         try {
+
+
 
             return ds.findDocument(id);
 
@@ -149,6 +155,10 @@ public class DocumentController {
     public ResponseEntity<String> deleteDocument(@PathVariable() String id) {
 
         try {
+
+            Document releated_document = ds.findDocumentObj(id);
+
+            cs.deleteCron(releated_document.getCron_id());
 
             return ds.deleteDocument(id);
 
