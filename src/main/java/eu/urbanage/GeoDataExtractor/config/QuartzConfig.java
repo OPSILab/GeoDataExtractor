@@ -4,12 +4,15 @@ import eu.urbanage.GeoDataExtractor.Job.FilterJob;
 import eu.urbanage.GeoDataExtractor.Job.UserJob;
 import org.quartz.*;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 @Configuration
+@EnableScheduling
+@ComponentScan(basePackages = "eu.urbanage.GeoDataExtractor.service")
 public class QuartzConfig {
-
 
 
     @Bean
@@ -27,7 +30,8 @@ public class QuartzConfig {
                 .withIdentity("userJobTrigger")
                 .withSchedule(SimpleScheduleBuilder.simpleSchedule()
                         .withMisfireHandlingInstructionNowWithExistingCount() // Esegui subito all'avvio
-                        .withIntervalInMinutes(5)) // Ogni 5 minuti dopo il primo avvio
+                        .withIntervalInMinutes(30)
+                        .repeatForever()) // Ogni 5 minuti dopo il primo avvio
                 .build();
     }
 
@@ -46,7 +50,8 @@ public class QuartzConfig {
                 .withIdentity("filterJobTrigger")
                 .withSchedule(SimpleScheduleBuilder.simpleSchedule()
                         .withMisfireHandlingInstructionNowWithExistingCount() // Esegui subito all'avvio
-                        .withIntervalInMinutes(60)) // Ogni 60 minuti dopo il primo avvio
+                        .withIntervalInMinutes(60)
+                        .repeatForever()) // Ogni 60 minuti dopo il primo avvio
                 .build();
     }
 
