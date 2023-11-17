@@ -10,8 +10,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 @Configuration
-@EnableScheduling
-@ComponentScan(basePackages = "eu.urbanage.GeoDataExtractor.service")
 public class QuartzConfig {
 
 
@@ -30,7 +28,7 @@ public class QuartzConfig {
                 .withIdentity("userJobTrigger")
                 .withSchedule(SimpleScheduleBuilder.simpleSchedule()
                         .withMisfireHandlingInstructionNowWithExistingCount() // Esegui subito all'avvio
-                        .withIntervalInMinutes(30)
+                        .withIntervalInMinutes(1)
                         .repeatForever()) // Ogni 5 minuti dopo il primo avvio
                 .build();
     }
@@ -50,7 +48,7 @@ public class QuartzConfig {
                 .withIdentity("filterJobTrigger")
                 .withSchedule(SimpleScheduleBuilder.simpleSchedule()
                         .withMisfireHandlingInstructionNowWithExistingCount() // Esegui subito all'avvio
-                        .withIntervalInMinutes(60)
+                        .withIntervalInMinutes(2)
                         .repeatForever()) // Ogni 60 minuti dopo il primo avvio
                 .build();
     }
