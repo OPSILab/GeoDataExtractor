@@ -28,7 +28,7 @@ public class QuartzConfig {
                 .withIdentity("userJobTrigger")
                 .withSchedule(SimpleScheduleBuilder.simpleSchedule()
                         .withMisfireHandlingInstructionNowWithExistingCount() // Esegui subito all'avvio
-                        .withIntervalInMinutes(30)
+                        .withIntervalInMinutes(5)
                         .repeatForever()) // Ogni 30 minuti dopo il primo avvio
                 .build();
     }
