@@ -176,6 +176,10 @@ public class DocumentService {
 
             if (foundDocument.isPresent()) {
 
+                doc.setDateCreation(foundDocument.get().getDateCreation());
+
+                doc.setCron_id(foundDocument.get().getCron_id());
+
                 dRepo.save(doc);
                 return ResponseEntity.noContent().build();
             }

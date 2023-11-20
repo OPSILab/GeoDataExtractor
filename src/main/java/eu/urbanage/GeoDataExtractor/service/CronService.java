@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,7 +58,13 @@ public class CronService {
 
             if (foundCron.isPresent()) {
 
+                cron.setCity(foundCron.get().getCity());
+                cron.setFilter(foundCron.get().getFilter());
+                cron.setData_created(foundCron.get().getData_created());
+                cron.setData_last_execution(foundCron.get().getData_last_execution());
+
                 cRepo.save(cron);
+
                 return ResponseEntity.noContent().build();
             }
             return ResponseEntity.notFound().build();
