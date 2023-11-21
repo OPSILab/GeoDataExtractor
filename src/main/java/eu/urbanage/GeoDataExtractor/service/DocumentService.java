@@ -173,14 +173,16 @@ public class DocumentService {
 
             Optional<Document> foundDocument = dRepo.findById(id);
 
-
             if (foundDocument.isPresent()) {
+
+                dRepo.deleteById(id);
 
                 doc.setDateCreation(foundDocument.get().getDateCreation());
 
                 doc.setCron_id(foundDocument.get().getCron_id());
 
                 dRepo.save(doc);
+
                 return ResponseEntity.noContent().build();
             }
             return ResponseEntity.notFound().build();
@@ -190,7 +192,15 @@ public class DocumentService {
             return null;
         }
     }
+    public void updateDocumentFromCron(Document doc) {
 
+        String id = doc.getId();
+
+        dRepo.deleteById(id);
+
+        dRepo.save(doc);
+
+    }
 
 
 }

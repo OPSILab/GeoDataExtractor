@@ -51,6 +51,7 @@ public class DocumentController {
 
         docJson.setDateCreation(new Date());
 
+
         ds.addDocument(docJson);
 
         return docJson.getId();
@@ -77,8 +78,6 @@ public class DocumentController {
     public ResponseEntity<Document> getDocument(@PathVariable() String id) {
 
         try {
-
-
 
             return ds.findDocument(id);
 

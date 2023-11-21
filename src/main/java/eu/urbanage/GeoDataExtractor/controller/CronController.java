@@ -53,7 +53,7 @@ public class CronController {
 
         ref_document.setCron_id(cron_id);
 
-        ds.updateDocument(ref_document);
+        ds.updateDocumentFromCron(ref_document);
 
         return cron_id;
 

@@ -1,8 +1,6 @@
 package eu.urbanage.GeoDataExtractor.service;
 
 import eu.urbanage.GeoDataExtractor.model.Cron;
-import eu.urbanage.GeoDataExtractor.model.Document;
-import eu.urbanage.GeoDataExtractor.repository.ConfigRepository;
 import eu.urbanage.GeoDataExtractor.repository.CronRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +28,7 @@ public class CronService {
     public Cron addCron(Cron cronjob) {
 
         try {
+
             return cRepo.save(cronjob);
 
         } catch (Exception e) {
@@ -49,28 +48,23 @@ public class CronService {
 
     public ResponseEntity<Cron> updateCron(Cron cron) {
 
-        String id = cron.getId();
-
         try {
 
-            Optional<Cron> foundCron = cRepo.findById(id);
+            Cron foundCron = cRepo.findByDocumentID(cron.getDocument_id()).get(0);
 
+            cRepo.deleteById(foundCron.getId());
 
-            if (foundCron.isPresent()) {
+            cron.setId(foundCron.getId());
+            cron.setCity(foundCron.getCity());
+            cron.setFilter(foundCron.getFilter());
+            cron.setData_created(foundCron.getData_created());
+            cron.setData_last_execution(foundCron.getData_last_execution());
 
-                cron.setCity(foundCron.get().getCity());
-                cron.setFilter(foundCron.get().getFilter());
-                cron.setData_created(foundCron.get().getData_created());
-                cron.setData_last_execution(foundCron.get().getData_last_execution());
+            cRepo.save(cron);
 
-                cRepo.save(cron);
-
-                return ResponseEntity.noContent().build();
-            }
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.noContent().build();
 
         } catch (Exception e) {
-            log.error("errore durante il reperimento dei dati {} a causa di: {}", id, e.getMessage());
             return null;
         }
     }
@@ -92,6 +86,8 @@ public class CronService {
             return null;
         }
     }
+
+
 
     public ResponseEntity<String> deleteCron(String id) {
 

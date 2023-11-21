@@ -14,7 +14,7 @@ public class Cron {
     private String id;
 
     @JsonProperty("document_id")
-    private String document_id;
+    private String documentID;
 
 
     private String city;
@@ -69,11 +69,11 @@ public class Cron {
     }
 
     public String getDocument_id() {
-        return document_id;
+        return documentID;
     }
 
     public void setDocument_id(String document_id) {
-        this.document_id = document_id;
+        this.documentID = document_id;
     }
 
     public int getRepeat() {
