@@ -98,6 +98,16 @@ public class CronController {
 
         try {
 
+            Cron selectedCron = cs.findCron(id).getBody();
+
+            String documentID = selectedCron.getDocument_id();
+
+            Document reletedDocument = ds.findDocumentObj(documentID);
+
+            reletedDocument.setCron_id(null);
+
+            ds.updateDocumentFromCron(reletedDocument);
+
             return cs.deleteCron(id);
 
 
