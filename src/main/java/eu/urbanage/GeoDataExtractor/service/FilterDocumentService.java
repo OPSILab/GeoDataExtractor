@@ -96,6 +96,8 @@ public class FilterDocumentService {
         stringList.add("Helsinki");
         stringList.add("Flanders");
         stringList.add("Santander");
+        stringList.add("ghent-lez");
+        stringList.add("leuven");
 
         System.out.println(stringList);
 

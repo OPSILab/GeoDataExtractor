@@ -36,7 +36,6 @@ public class CronController {
     @PostMapping("/set/")
     public String postCron(@RequestBody Cron cronJson) {
 
-
         String document_id = cronJson.getDocument_id();
 
         Document ref_document = ds.findDocument(document_id).getBody();

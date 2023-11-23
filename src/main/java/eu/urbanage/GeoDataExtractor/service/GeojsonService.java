@@ -55,7 +55,7 @@ public class GeojsonService implements GeojsonClient{
 
         for (String filter: filter_list) {
 
-            String url = contexBrokerEndpoint + "?idPattern=urn:ngsi-ld:" + filter + ":" + data.getCityName() + ":*&georel=intersects&coords="+data.getPolygonString()+"&geometry=Polygon&limit=" + limit;
+            String url = contexBrokerEndpoint + "?idPattern=urn:ngsi-ld:" + filter + ":" + data.getCityName() + ":*&georel=intersects&coords="+data.getPolygonString()+"&geometry=Polygon&options=concise&limit=" + limit;
 
             response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
 
@@ -98,7 +98,7 @@ public class GeojsonService implements GeojsonClient{
 
             for (String filter: filter_list) {
 
-                String url = contexBrokerEndpoint + "?idPattern=urn:ngsi-ld:" + filter + ":" + innerPolygon.getCityName() + ":*&georel=intersects&coords="+innerPolygon.getPolygonString()+"&geometry=Polygon&limit=" + limit;
+                String url = contexBrokerEndpoint + "?idPattern=urn:ngsi-ld:" + filter + ":" + innerPolygon.getCityName() + ":*&georel=intersects&coords="+innerPolygon.getPolygonString()+"&geometry=Polygon&options=concise&limit=" + limit;
 
                 response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
 
@@ -140,7 +140,7 @@ public class GeojsonService implements GeojsonClient{
 
         for (String filter: filter_list) {
 
-            String url = contexBrokerEndpoint + "?idPattern=urn:ngsi-ld:" + filter + ":" + data.getCityName() + ":*&georel=near;"+ distanceType+":"+data.getRadius()+"&geometry=Point&coords="+data.getPointString()+"&limit=" + limit;
+            String url = contexBrokerEndpoint + "?idPattern=urn:ngsi-ld:" + filter + ":" + data.getCityName() + ":*&georel=near;"+ distanceType+":"+data.getRadius()+"&geometry=Point&coords="+data.getPointString()+"&options=concise&limit=" + limit;
 
             response = restTemplate.exchange(url
                     , HttpMethod.GET, requestEntity, String.class);
@@ -190,7 +190,7 @@ public class GeojsonService implements GeojsonClient{
 
             for (String filter: filter_list) {
 
-                String url = contexBrokerEndpoint + "?idPattern=urn:ngsi-ld:" + filter + ":" + innerPointRadius.getCityName() + ":*&georel=near;"+ distanceType+":"+innerPointRadius.getRadius()+"&geometry=Point&coords="+innerPointRadius.getPointString()+"&limit=" + limit;
+                String url = contexBrokerEndpoint + "?idPattern=urn:ngsi-ld:" + filter + ":" + innerPointRadius.getCityName() + ":*&georel=near;"+ distanceType+":"+innerPointRadius.getRadius()+"&geometry=Point&options=concise&coords="+innerPointRadius.getPointString()+"&limit=" + limit;
 
                 response = restTemplate.exchange(url
                         , HttpMethod.GET, requestEntity, String.class);
