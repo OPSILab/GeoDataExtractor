@@ -30,7 +30,7 @@ public class Document {
     private String description;
 
     @JsonProperty("geojson")
-    private GeoJSONFeature geojson;
+    private Object geojson;
 
     @JsonProperty("layers")
     private List<Object> layers;
@@ -107,11 +107,11 @@ public class Document {
         this.description = description;
     }
 
-    public GeoJSONFeature getGeojson() {
+    public Object getGeojson() {
         return geojson;
     }
 
-    public void setGeojson(GeoJSONFeature geojson) {
+    public void setGeojson(Object geojson) {
         this.geojson = geojson;
     }
 

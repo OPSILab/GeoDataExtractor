@@ -68,6 +68,28 @@ public class CronService {
         }
     }
 
+    public ResponseEntity<Cron> updateCronAfterExec(Cron cron) {
+
+        try {
+
+            Cron foundCron = cRepo.findByDocumentID(cron.getDocument_id()).get(0);
+
+            cRepo.deleteById(foundCron.getId());
+
+            cron.setId(foundCron.getId());
+            cron.setCity(foundCron.getCity());
+            cron.setFilter(foundCron.getFilter());
+            cron.setData_created(foundCron.getData_created());
+
+            cRepo.save(cron);
+
+            return ResponseEntity.noContent().build();
+
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public ResponseEntity<Cron> findCron(String id) {
 
         try {

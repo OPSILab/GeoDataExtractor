@@ -123,7 +123,7 @@ public class DocumentController {
     }
 
     @GetMapping("/getGeojson/{id}")
-    public ResponseEntity<GeoJSONFeature> getGeojsonByID(@PathVariable() String id) {
+    public ResponseEntity<Object> getGeojsonByID(@PathVariable() String id) {
 
         try {
 

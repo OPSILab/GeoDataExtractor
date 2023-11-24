@@ -12,14 +12,14 @@ import java.util.Iterator;
 import java.util.List;
 public class GeoJsonUtils {
 
-    public static GeoJSONFeature mergeFeatureCollections(String geojsonString1, String geojsonString2) {
+    public static Object mergeFeatureCollections(String geojsonString1, String geojsonString2) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode1 = objectMapper.readTree(geojsonString1);
             JsonNode rootNode2 = objectMapper.readTree(geojsonString2);
 
             if (rootNode1.isArray() && rootNode2.isArray()) {
-                List<GeoJSONFeature> allFeatures = new ArrayList<>();
+                List<Object> allFeatures = new ArrayList<>();
 
                 Iterator<JsonNode> elements1 = rootNode1.elements();
                 while (elements1.hasNext()) {
@@ -27,7 +27,7 @@ public class GeoJsonUtils {
                     JsonNode features = featureCollection.get("features");
                     if (features != null && features.isArray()) {
                         for (JsonNode feature : features) {
-                            GeoJSONFeature geoJSONFeature = objectMapper.readValue(feature.toString(), GeoJSONFeature.class);
+                            Object geoJSONFeature = objectMapper.readValue(feature.toString(), Object.class);
                             allFeatures.add(geoJSONFeature);
                         }
                     }
@@ -39,7 +39,7 @@ public class GeoJsonUtils {
                     JsonNode features = featureCollection.get("features");
                     if (features != null && features.isArray()) {
                         for (JsonNode feature : features) {
-                            GeoJSONFeature geoJSONFeature = objectMapper.readValue(feature.toString(), GeoJSONFeature.class);
+                            Object geoJSONFeature = objectMapper.readValue(feature.toString(), Object.class);
                             allFeatures.add(geoJSONFeature);
                         }
                     }
@@ -47,7 +47,7 @@ public class GeoJsonUtils {
 
                 GeoJSONFeature mergedFeature = new GeoJSONFeature();
                 mergedFeature.setType("FeatureCollection");
-                mergedFeature.getProperties().put("features", allFeatures);
+                mergedFeature.setFeatures(allFeatures);
                 return mergedFeature;
             } else {
                 System.out.println("Entrambi i GeoJSON devono essere di tipo 'FeatureCollection'.");

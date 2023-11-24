@@ -46,7 +46,7 @@ public class DocumentService {
     }
 
 
-    public ResponseEntity<GeoJSONFeature> findDocumentGeojson(String id) {
+    public ResponseEntity<Object> findDocumentGeojson(String id) {
 
         try {
 

@@ -84,7 +84,7 @@ public class UserJob implements Job {
 
                 ds.updateDocument(releated_document);
                 selCron.setData_last_execution(new Date());
-                cs.updateCron(selCron);
+                cs.updateCronAfterExec(selCron);
 
 
 
