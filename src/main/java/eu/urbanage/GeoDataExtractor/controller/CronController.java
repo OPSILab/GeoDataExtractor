@@ -97,21 +97,18 @@ public class CronController {
 
         try {
 
-            Cron selectedCron = cs.findCron(id).getBody();
+            Document reletedDocument = ds.findDocumentObj(id);
 
-            String documentID = selectedCron.getDocument_id();
-
-            Document reletedDocument = ds.findDocumentObj(documentID);
+            String cronID = reletedDocument.getCron_id();
 
             reletedDocument.setCron_id(null);
 
             ds.updateDocumentFromCron(reletedDocument);
 
-            return cs.deleteCron(id);
+            return cs.deleteCron(cronID);
 
 
         } catch (Exception e) {
-            LOGGER.error(id, e);
             return ResponseEntity.internalServerError().body(null);
         }
 
