@@ -28,6 +28,7 @@ public class GeoJsonUtils {
                     if (features != null && features.isArray()) {
                         for (JsonNode feature : features) {
                             Object geoJSONFeature = objectMapper.readValue(feature.toString(), Object.class);
+                            System.out.println(geoJSONFeature);
                             allFeatures.add(geoJSONFeature);
                         }
                     }
