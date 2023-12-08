@@ -35,7 +35,7 @@ public class PolygonController {
             ObjectMapper objectMapper = new ObjectMapper();
             Polygon polygon = objectMapper.readValue(polygonJson, Polygon.class);
             
-            GeojsonService gs = new GeojsonService(new String("orion.ecosystem-urbanage.eu"), new String("443"));
+            GeojsonService gs = new GeojsonService();
     
             List<String> test = gs.getFromPolygon(polygon);
     

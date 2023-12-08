@@ -1,5 +1,9 @@
 package eu.urbanage.GeoDataExtractor.utils;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
 public class OrionQueryBuilder {
 
     private StringBuilder urlBuilder;
@@ -7,13 +11,15 @@ public class OrionQueryBuilder {
     public OrionQueryBuilder(String baseURL) {
         this.urlBuilder = new StringBuilder(baseURL);
     }
-    public OrionQueryBuilder(int limit) {
+
+
+    public OrionQueryBuilder(String baseURL, int limit) {
 
         String limitString =  String.valueOf(limit);
-        this.urlBuilder = new StringBuilder("https://orion.ecosystem-urbanage.eu/ngsi-ld/v1/entities?limit="+limitString);
+        this.urlBuilder = new StringBuilder(baseURL + "/ngsi-ld/v1/entities?limit="+limitString);
     }
+
     public OrionQueryBuilder() {
-        this.urlBuilder = new StringBuilder("https://orion.ecosystem-urbanage.eu/ngsi-ld/v1/entities?limit=1000");
     }
 
     public OrionQueryBuilder addIdPattern(String type, String city) {
@@ -68,6 +74,6 @@ public class OrionQueryBuilder {
     }
 
     public String get() {
-        return urlBuilder.toString();
+        return this.urlBuilder.toString();
     }
 }

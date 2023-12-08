@@ -18,22 +18,21 @@ public class FilterService implements FilterClient{
 
     RestTemplate restTemplate = new RestTemplate();
 
+    @Value("${HOST_ORION}")
     private String hostContextBroker;
 
-    private String portContextBroker;
 
-    public FilterService(@Value("${contexBroker.host_orion}") String hostContextBroker, @Value("${contexBroker.port_orion}") String portContextBroker) {
+    public FilterService(@Value("${HOST_ORION}") String hostContextBroker) {
         this.hostContextBroker = hostContextBroker;
-        this.portContextBroker = portContextBroker;
     }
 
     public List<String> getAllCityFilter(String city) throws JsonProcessingException {
 
-
-        OrionQueryBuilder oqb = new OrionQueryBuilder("https://" + hostContextBroker + ":" + portContextBroker + "/ngsi-ld/v1/types");
+        System.out.println(hostContextBroker);
+        OrionQueryBuilder oqb = new OrionQueryBuilder(hostContextBroker + "/ngsi-ld/v1/types");
 
         String contexBrokerEndpoint = oqb.get();
-
+        System.out.println(contexBrokerEndpoint);
         ResponseEntity<String> response;
 
 
@@ -50,8 +49,9 @@ public class FilterService implements FilterClient{
 
             String filter_ = filter_node.asText();
 
-            OrionQueryBuilder oqbCheck = new OrionQueryBuilder(1);
+            OrionQueryBuilder oqbCheck = new OrionQueryBuilder(hostContextBroker, 1);
             String contexBrokerQuery = oqbCheck.addIdPattern(filter_, city).addLocationQuery().get();
+            System.out.println(contexBrokerQuery);
 
             try {
                 response = restTemplate.getForEntity(contexBrokerQuery, String.class);

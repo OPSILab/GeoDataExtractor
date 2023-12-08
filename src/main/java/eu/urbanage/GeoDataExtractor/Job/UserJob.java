@@ -51,7 +51,6 @@ public class UserJob implements Job {
 
             int scheduled = selCron.getRepeat();
 
-
             LocalDateTime lastExecutionLocal = lastExecution.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 
             long differenzaInOre = ChronoUnit.HOURS.between(lastExecutionLocal, startJob);

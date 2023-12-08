@@ -22,6 +22,9 @@ public class FilterDocumentService {
     @Autowired
     protected FilterRepository fRepo;
 
+    @Autowired
+    protected  FilterService fs;
+
 
     public ResponseEntity<FilterDetail> findFilterByCity(String city) {
 
@@ -71,8 +74,6 @@ public class FilterDocumentService {
         List<String> city_list = getCityList();
 
         for (String city : city_list){
-
-            FilterService fs = new FilterService(new String("orion.ecosystem-urbanage.eu"), new String("443"));
 
             List<String> filter_list = fs.getAllCityFilter(city);
 

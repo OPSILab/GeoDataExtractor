@@ -8,10 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class GeoDataExtractorApplication {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(GeoDataExtractorApplication.class);
 
     public static void main(String[] args) throws SchedulerException {
+
         SpringApplication.run(GeoDataExtractorApplication.class, args);
         LOGGER.info("Start Logging");
     }

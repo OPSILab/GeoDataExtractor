@@ -12,7 +12,7 @@ services:
       - './mongo_data:/data/db'
 
   geodata-be:
-    image: geodata-be:main
+    image: geodata-be:beta
     container_name: "geodata-be"
     build:
       context: .

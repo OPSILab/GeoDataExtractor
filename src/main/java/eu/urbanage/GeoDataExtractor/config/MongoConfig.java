@@ -4,8 +4,10 @@ import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
@@ -16,12 +18,41 @@ import java.util.Collections;
 @EnableMongoRepositories(basePackages = "eu.urbanage.GeoDataExtractor.repository")
 public class MongoConfig extends AbstractMongoClientConfiguration {
 
+
+    /*
+    @Autowired
+    private Environment env;
+
+
+    MongoConfig(@Value("mongodb://mongo") String mongodbUrl, @Value("URBANAGE") String mongodbDatabase)  {
+
+        this.mongodbUrl = env.getProperty("MONGODB_URL");
+
+        String platform = env.getProperty("PLATFORM", "unknow");
+
+        if (platform.equals("dev")){
+            this.mongodbDatabase = "URBANAGE_DEV";
+        }else {
+
+            if (platform.equals("prod")) {
+                this.mongodbDatabase = "URBANAGE_PROD";
+            }
+        }
+    }
+    */
     private String mongodbUrl;
     private String mongodbDatabase;
 
-    MongoConfig(@Value("mongodb://mongo") String mongodbUrl, @Value("URBANAGE") String mongodbDatabase) {
+    MongoConfig(@Value("${MONGODB_URL}") String mongodbUrl, @Value("${PLATFORM}") String platform) {
         this.mongodbUrl = mongodbUrl;
-        this.mongodbDatabase = mongodbDatabase;
+
+        if ("dev".equals(platform)) {
+            this.mongodbDatabase = "URBANAGE_DEV";
+        } else if ("prod".equals(platform)) {
+            this.mongodbDatabase = "URBANAGE_PROD";
+        } else {
+            this.mongodbDatabase = "URBANAGE";
+        }
     }
     
     @Override

@@ -19,14 +19,13 @@ public class GeojsonService implements GeojsonClient{
 
 
     RestTemplate restTemplate = new RestTemplate();
-
+    @Value("${HOST_ORION}")
     private String hostContextBroker;
 
-    private String portContextBroker;
 
-    public GeojsonService(@Value("${contexBroker.host_orion}") String hostContextBroker, @Value("${contexBroker.port_orion}") String portContextBroker) {
+
+    public GeojsonService(@Value("${HOST_ORION}") String hostContextBroker) {
         this.hostContextBroker = hostContextBroker;
-        this.portContextBroker = portContextBroker;
     }
 
     public GeojsonService() {
@@ -64,7 +63,7 @@ public class GeojsonService implements GeojsonClient{
             for (String filter: filter_list) {
 
                 if (sub_filter_list != null){
-                    OrionQueryBuilder oqb = new OrionQueryBuilder();
+                    OrionQueryBuilder oqb = new OrionQueryBuilder(hostContextBroker, 1000);
 
                     for (List<String> sub_filter: sub_filter_list){
 
@@ -94,7 +93,7 @@ public class GeojsonService implements GeojsonClient{
 
                 }
                 else {
-                    OrionQueryBuilder oqb = new OrionQueryBuilder();
+                    OrionQueryBuilder oqb = new OrionQueryBuilder(hostContextBroker, 1000);
                     String url = oqb.addIdPattern(filter, innerPolygon.getCityName()).addPolygonQuery(innerPolygon.getPolygonString()).addConcise().get();
                     response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
 
@@ -144,7 +143,7 @@ public class GeojsonService implements GeojsonClient{
 
             for (String filter: filter_list) {
                 if (sub_filter_list != null){
-                    OrionQueryBuilder oqb = new OrionQueryBuilder();
+                    OrionQueryBuilder oqb = new OrionQueryBuilder(hostContextBroker, 1000);
 
                     for (List<String> sub_filter: sub_filter_list){
 
@@ -174,7 +173,7 @@ public class GeojsonService implements GeojsonClient{
                 }
                 else {
 
-                    OrionQueryBuilder oqb = new OrionQueryBuilder();
+                    OrionQueryBuilder oqb = new OrionQueryBuilder(hostContextBroker, 1000);
 
                     String url = oqb.addIdPattern(filter, innerPointRadius.getCityName()).addPointRadiusQuery(distanceType,innerPointRadius.getRadius(),innerPointRadius.getPointString()).addConcise().get();
                     response = restTemplate.exchange(url
@@ -211,7 +210,7 @@ public class GeojsonService implements GeojsonClient{
 
         List<String> GeoData= new ArrayList();
 
-        String contexBrokerEndpoint = "https://" + hostContextBroker + ":" + portContextBroker + "/ngsi-ld/v1/entities";
+        String contexBrokerEndpoint = hostContextBroker + "/ngsi-ld/v1/entities";
         ResponseEntity<String> response;
         //da sistemare il limit - offset
 
@@ -253,7 +252,7 @@ public class GeojsonService implements GeojsonClient{
 
         List<String> GeoData= new ArrayList();
 
-        String contexBrokerEndpoint = "https://" + hostContextBroker + ":" + portContextBroker + "/ngsi-ld/v1/entities";
+        String contexBrokerEndpoint = hostContextBroker + "/ngsi-ld/v1/entities";
         ResponseEntity<String> response;
         //da sistemare il limit - offset
 
