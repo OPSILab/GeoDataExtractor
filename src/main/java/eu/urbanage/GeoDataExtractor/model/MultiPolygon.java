@@ -14,6 +14,9 @@ public class MultiPolygon {
     @JsonProperty("filter")
     private List<String> filter;
 
+    @JsonProperty("subfilter")
+    private List<List<String>> subfilter;
+
     @JsonProperty("city")
     private String cityName;
 
@@ -63,5 +66,17 @@ public class MultiPolygon {
 
     public void setCityName(String cityName) {
         this.cityName = cityName;
+    }
+
+    public void setMultiPolygon(List<List<Coordinates>> multiPolygon) {
+        this.multiPolygon = multiPolygon;
+    }
+
+    public List<List<String>> getSubfilter() {
+        return subfilter;
+    }
+
+    public void setSubfilter(List<List<String>> subfilter) {
+        this.subfilter = subfilter;
     }
 }

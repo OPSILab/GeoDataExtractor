@@ -2,6 +2,8 @@ package eu.urbanage.GeoDataExtractor.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.urbanage.GeoDataExtractor.model.*;
+import eu.urbanage.GeoDataExtractor.utils.OrionQueryBuilder;
+import org.quartz.SimpleTrigger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -89,6 +91,7 @@ public class GeojsonService implements GeojsonClient{
         //da sistemare il limit - offset
 
         List<String> filter_list = data.getFilter();
+        List<List<String>> sub_filter_list = data.getSubfilter();
 
         List<List<Coordinates>> multiPolygon = data.getMultiPolygon();
 
@@ -98,12 +101,47 @@ public class GeojsonService implements GeojsonClient{
 
             for (String filter: filter_list) {
 
-                String url = contexBrokerEndpoint + "?idPattern=urn:ngsi-ld:" + filter + ":" + innerPolygon.getCityName() + ":*&georel=intersects&coords="+innerPolygon.getPolygonString()+"&geometry=Polygon&options=concise&limit=" + limit;
+                if (sub_filter_list != null){
+                    OrionQueryBuilder oqb = new OrionQueryBuilder();
 
-                response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
 
-                List<String> responseArr = Arrays.asList(response.getBody());
-                GeoData.addAll(responseArr);
+                    for (List<String> sub_filter: sub_filter_list){
+
+                        String sub_key = sub_filter.get(0);
+                        String sub_value = sub_filter.get(1);
+
+                        if (sub_key.equals("id_category")){
+
+                            oqb.addIdPattern(filter, data.getCityName(), sub_value);
+
+                        }
+                        else {
+
+                            oqb.addIdPattern(filter, data.getCityName()).addFilterQuery(sub_key, sub_value);
+                        }
+
+                        String url = oqb.addConcise().addPolygonQuery(innerPolygon.getPolygonString()).get();
+
+                        System.out.println(url);
+
+                        response = restTemplate.exchange(url
+                                , HttpMethod.GET, requestEntity, String.class);
+                        List<String> responseArr = Arrays.asList(response.getBody());
+                        GeoData.addAll(responseArr);
+
+                    }
+
+                }
+                else {
+
+
+                    String url = contexBrokerEndpoint + "?idPattern=urn:ngsi-ld:" + filter + ":" + innerPolygon.getCityName() + ":*&georel=intersects&coords=" + innerPolygon.getPolygonString() + "&geometry=Polygon&options=concise&limit=" + limit;
+
+                    response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
+
+                    List<String> responseArr = Arrays.asList(response.getBody());
+                    GeoData.addAll(responseArr);
+                }
             }
         }
 
@@ -166,8 +204,6 @@ public class GeojsonService implements GeojsonClient{
 
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 
-
-
         List<String> GeoData= new ArrayList();
 
         String contexBrokerEndpoint = "https://" + hostContextBroker + ":" + portContextBroker + "/ngsi-ld/v1/entities";
@@ -176,6 +212,7 @@ public class GeojsonService implements GeojsonClient{
 
         List<String> filter_list = data.getFilter();
         List<PointRadiusFeature> multiPoint = data.getMultipoint();
+        List<List<String>> sub_filter_list = data.getSubfilter();
 
         for (PointRadiusFeature pointRadius : multiPoint){
 
@@ -188,14 +225,47 @@ public class GeojsonService implements GeojsonClient{
                 distanceType = "maxDistance";
             }
 
+
+
             for (String filter: filter_list) {
+                if (sub_filter_list != null){
+                    OrionQueryBuilder oqb = new OrionQueryBuilder();
 
-                String url = contexBrokerEndpoint + "?idPattern=urn:ngsi-ld:" + filter + ":" + innerPointRadius.getCityName() + ":*&georel=near;"+ distanceType+":"+innerPointRadius.getRadius()+"&geometry=Point&options=concise&coords="+innerPointRadius.getPointString()+"&limit=" + limit;
+                    for (List<String> sub_filter: sub_filter_list){
 
-                response = restTemplate.exchange(url
-                        , HttpMethod.GET, requestEntity, String.class);
-                List<String> responseArr = Arrays.asList(response.getBody());
-                GeoData.addAll(responseArr);
+                        String sub_key = sub_filter.get(0);
+                        String sub_value = sub_filter.get(1);
+
+                        if (sub_key.equals("id_category")){
+
+                            oqb.addIdPattern(filter, data.getCityName(), sub_value);
+
+                        }
+                        else {
+
+                            oqb.addIdPattern(filter, data.getCityName()).addFilterQuery(sub_key, sub_value);
+                        }
+
+                        String url = oqb.addConcise().addPointRadiusQuery(distanceType, innerPointRadius.getRadius(), innerPointRadius.getPointString()).get();
+
+                        System.out.println(url);
+
+                        response = restTemplate.exchange(url
+                                , HttpMethod.GET, requestEntity, String.class);
+                        List<String> responseArr = Arrays.asList(response.getBody());
+                        GeoData.addAll(responseArr);
+
+                    }
+
+                }
+                else {
+                    String url = contexBrokerEndpoint + "?idPattern=urn:ngsi-ld:" + filter + ":" + innerPointRadius.getCityName() + ":*&georel=near;" + distanceType + ":" + innerPointRadius.getRadius() + "&geometry=Point&options=concise&coords=" + innerPointRadius.getPointString() + "&limit=" + limit;
+
+                    response = restTemplate.exchange(url
+                            , HttpMethod.GET, requestEntity, String.class);
+                    List<String> responseArr = Arrays.asList(response.getBody());
+                    GeoData.addAll(responseArr);
+                }
             }
 
         }

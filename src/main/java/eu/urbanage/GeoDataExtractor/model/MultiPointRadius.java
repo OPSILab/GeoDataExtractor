@@ -14,6 +14,9 @@ public class MultiPointRadius {
     @JsonProperty("filter")
     private List<String> filter;
 
+    @JsonProperty("subfilter")
+    private List<List<String>> subfilter;
+
     @JsonProperty("city")
     private String cityName;
 
@@ -39,5 +42,13 @@ public class MultiPointRadius {
 
     public void setCityName(String cityName) {
         this.cityName = cityName;
+    }
+
+    public List<List<String>> getSubfilter() {
+        return subfilter;
+    }
+
+    public void setSubfilter(List<List<String>> subfilter) {
+        this.subfilter = subfilter;
     }
 }

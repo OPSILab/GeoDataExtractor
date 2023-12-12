@@ -51,7 +51,7 @@ public class FilterService implements FilterClient{
 
             String filter_ = filter_node.asText();
 
-            String contexBrokerQuery = "https://" + hostContextBroker + ":" + portContextBroker + "/ngsi-ld/v1/entities?idPattern=urn:ngsi-ld:" + filter_ + ":" + city+":*";
+            String contexBrokerQuery = "https://" + hostContextBroker + ":" + portContextBroker + "/ngsi-ld/v1/entities?idPattern=urn:ngsi-ld:" + filter_ + ":" + city+":*"+"&attrs=location";
 
             System.out.println(contexBrokerQuery);
             try {

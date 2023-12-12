@@ -61,6 +61,8 @@ public class UserJob implements Job {
 
                 testMP.setFilter(releated_document.getFilter());
 
+                testMP.setSubfilter(releated_document.getSubfilter());
+
                 testMP.setCityName(releated_document.getCityName());
 
                 testMP.setPolygon(selCron.getMultiPolygon());
@@ -70,9 +72,9 @@ public class UserJob implements Job {
                 MultiPointRadius testMPR = new MultiPointRadius();
 
                 testMPR.setFilter(releated_document.getFilter());
+                testMPR.setSubfilter(releated_document.getSubfilter());
                 testMPR.setCityName(releated_document.getCityName());
                 testMPR.setMultipoint(selCron.getMultipoint());
-
                 String geojsonMPR;
                 try {
                     geojsonMPR = geoserv.getFromMultiPointRadius(testMPR).toString();

@@ -23,6 +23,9 @@ public class Document {
     @JsonProperty("filter")
     private List<String> filter;
 
+    @JsonProperty("subfilter")
+    private List<List<String>> subfilter;
+
     @JsonProperty("name")
     private String name;
 
@@ -129,6 +132,14 @@ public class Document {
 
     public void setDateCreation(Date dateCreation) {
         this.dateCreation = dateCreation;
+    }
+
+    public List<List<String>> getSubfilter() {
+        return subfilter;
+    }
+
+    public void setSubfilter(List<List<String>> subfilter) {
+        this.subfilter = subfilter;
     }
 }
 
