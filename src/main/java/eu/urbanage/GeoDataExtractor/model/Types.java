@@ -2,6 +2,7 @@ package eu.urbanage.GeoDataExtractor.model;
 
 import java.util.List;
 
+@Deprecated
 public class Types {
 
     public String id;

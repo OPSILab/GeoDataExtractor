@@ -13,6 +13,8 @@ import eu.urbanage.GeoDataExtractor.utils.GeoJsonUtils;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,10 +32,12 @@ public class UserJob implements Job {
 
     @Autowired
     protected DocumentService ds;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(FilterJob.class);
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
 
-        System.out.println("Eseguo il job dell'utente");
+        LOGGER.info("Start User Cron Service");
 
         LocalDateTime startJob = LocalDateTime.now();
 
@@ -55,7 +59,7 @@ public class UserJob implements Job {
 
             if (differenzaInOre>=scheduled) {
 
-                GeojsonService geoserv = new GeojsonService(new String("orion.ecosystem-urbanage.eu"), new String("443"));
+                GeojsonService geoserv = new GeojsonService();
 
                 MultiPolygon testMP = new MultiPolygon();
 
@@ -88,13 +92,11 @@ public class UserJob implements Job {
                 selCron.setData_last_execution(new Date());
                 cs.updateCronAfterExec(selCron);
 
-
-
-
-
             }
 
         }
+
+        LOGGER.info("End User Cron Service");
 
         }
 }

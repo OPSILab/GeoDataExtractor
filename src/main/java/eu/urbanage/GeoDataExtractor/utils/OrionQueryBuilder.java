@@ -7,7 +7,11 @@ public class OrionQueryBuilder {
     public OrionQueryBuilder(String baseURL) {
         this.urlBuilder = new StringBuilder(baseURL);
     }
+    public OrionQueryBuilder(int limit) {
 
+        String limitString =  String.valueOf(limit);
+        this.urlBuilder = new StringBuilder("https://orion.ecosystem-urbanage.eu/ngsi-ld/v1/entities?limit="+limitString);
+    }
     public OrionQueryBuilder() {
         this.urlBuilder = new StringBuilder("https://orion.ecosystem-urbanage.eu/ngsi-ld/v1/entities?limit=1000");
     }
@@ -47,6 +51,12 @@ public class OrionQueryBuilder {
     //&georel=intersects&coords=" + innerPolygon.getPolygonString() + "&geometry=Polygon
     public OrionQueryBuilder addPolygonQuery(String polygonString) {
         String appendQuery = "&georel=intersects&coords=" + polygonString + "&geometry=Polygon";
+        urlBuilder.append(appendQuery);
+        return this;
+    }
+
+    public OrionQueryBuilder addLocationQuery() {
+        String appendQuery = "&attrs=location";
         urlBuilder.append(appendQuery);
         return this;
     }

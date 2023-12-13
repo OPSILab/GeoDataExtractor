@@ -3,7 +3,7 @@ package eu.urbanage.GeoDataExtractor.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import eu.urbanage.GeoDataExtractor.model.Types;
+import eu.urbanage.GeoDataExtractor.utils.OrionQueryBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -30,12 +29,13 @@ public class FilterService implements FilterClient{
 
     public List<String> getAllCityFilter(String city) throws JsonProcessingException {
 
-        String contexBrokerEndpoint = "https://" + hostContextBroker + ":" + portContextBroker + "/ngsi-ld/v1/types";
+
+        OrionQueryBuilder oqb = new OrionQueryBuilder("https://" + hostContextBroker + ":" + portContextBroker + "/ngsi-ld/v1/types");
+
+        String contexBrokerEndpoint = oqb.get();
 
         ResponseEntity<String> response;
 
-        System.out.println("hostContextBroker: " + hostContextBroker);
-        System.out.println("contexBrokerEndpoint: " + contexBrokerEndpoint);
 
         response = restTemplate.getForEntity(contexBrokerEndpoint, String.class);
 
@@ -51,15 +51,13 @@ public class FilterService implements FilterClient{
 
             String filter_ = filter_node.asText();
 
-            String contexBrokerQuery = "https://" + hostContextBroker + ":" + portContextBroker + "/ngsi-ld/v1/entities?idPattern=urn:ngsi-ld:" + filter_ + ":" + city+":*"+"&attrs=location";
+            OrionQueryBuilder oqbCheck = new OrionQueryBuilder(1);
+            String contexBrokerQuery = oqbCheck.addIdPattern(filter_, city).addLocationQuery().get();
 
-            System.out.println(contexBrokerQuery);
             try {
                 response = restTemplate.getForEntity(contexBrokerQuery, String.class);
-                // Gestisci la risposta qui, se necessario
             } catch (HttpClientErrorException.NotFound ex) {
                 response = null;
-                System.out.println("La risorsa richiesta non è stata trovata.");
             }
 
             JsonNode nameNode_n = mapper.readTree(response.getBody());

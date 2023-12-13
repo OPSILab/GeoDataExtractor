@@ -30,47 +30,11 @@ public class GeojsonService implements GeojsonClient{
         this.portContextBroker = portContextBroker;
     }
 
-    @Override
-    public List<String> getFromPolygon(Polygon data){
-        int limit = 1000;
-
-        //da sistemare
-        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
-        headers.add("Accept", "application/geo+json");
-        headers.add("Content-Type", "application/json");
-        headers.add("Access-Control-Allow-Origin", "*");
-        headers.add("Access-Control-Allow-Headers", "*");
-        headers.add("Access-Control-Allow-Methods", "*");
-        
-        
-
-        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
-
-
-        List<String> GeoData= new ArrayList();
-
-        String contexBrokerEndpoint = "https://" + hostContextBroker + ":" + portContextBroker + "/ngsi-ld/v1/entities";
-        ResponseEntity<String> response;
-        //da sistemare il limit - offset
-
-        List<String> filter_list = data.getFilter();
-
-        for (String filter: filter_list) {
-
-            String url = contexBrokerEndpoint + "?idPattern=urn:ngsi-ld:" + filter + ":" + data.getCityName() + ":*&georel=intersects&coords="+data.getPolygonString()+"&geometry=Polygon&options=concise&limit=" + limit;
-
-            response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
-
-            List<String> responseArr = Arrays.asList(response.getBody());
-            GeoData.addAll(responseArr);
-        }
-
-        return GeoData;
+    public GeojsonService() {
     }
 
     @Override
     public List<String> getFromMultiPolygon(MultiPolygon data){
-        int limit = 1000;
 
         //da sistemare
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
@@ -86,7 +50,6 @@ public class GeojsonService implements GeojsonClient{
 
         List<String> GeoData= new ArrayList();
 
-        String contexBrokerEndpoint = "https://" + hostContextBroker + ":" + portContextBroker + "/ngsi-ld/v1/entities";
         ResponseEntity<String> response;
         //da sistemare il limit - offset
 
@@ -103,7 +66,6 @@ public class GeojsonService implements GeojsonClient{
 
                 if (sub_filter_list != null){
                     OrionQueryBuilder oqb = new OrionQueryBuilder();
-
 
                     for (List<String> sub_filter: sub_filter_list){
 
@@ -122,8 +84,6 @@ public class GeojsonService implements GeojsonClient{
 
                         String url = oqb.addConcise().addPolygonQuery(innerPolygon.getPolygonString()).get();
 
-                        System.out.println(url);
-
                         response = restTemplate.exchange(url
                                 , HttpMethod.GET, requestEntity, String.class);
                         List<String> responseArr = Arrays.asList(response.getBody());
@@ -133,10 +93,8 @@ public class GeojsonService implements GeojsonClient{
 
                 }
                 else {
-
-
-                    String url = contexBrokerEndpoint + "?idPattern=urn:ngsi-ld:" + filter + ":" + innerPolygon.getCityName() + ":*&georel=intersects&coords=" + innerPolygon.getPolygonString() + "&geometry=Polygon&options=concise&limit=" + limit;
-
+                    OrionQueryBuilder oqb = new OrionQueryBuilder();
+                    String url = oqb.addIdPattern(filter, innerPolygon.getCityName()).addPolygonQuery(innerPolygon.getPolygonString()).addConcise().get();
                     response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
 
                     List<String> responseArr = Arrays.asList(response.getBody());
@@ -148,52 +106,9 @@ public class GeojsonService implements GeojsonClient{
         return GeoData;
     }
 
-    @Override
-    public List<String> getFromPointRadius(PointRadius data) throws JsonProcessingException {
-        int limit = 1000;
-
-        String distanceType;
-
-
-        //da sistemare
-        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
-        headers.add("Accept", "application/geo+json");
-
-        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
-
-        if (data.isExternal()){
-            distanceType = "minDistance";
-        }
-        else{
-            distanceType = "maxDistance";
-        }
-
-        List<String> GeoData= new ArrayList();
-
-        String contexBrokerEndpoint = "https://" + hostContextBroker + ":" + portContextBroker + "/ngsi-ld/v1/entities";
-        ResponseEntity<String> response;
-        //da sistemare il limit - offset
-
-        List<String> filter_list = data.getFilter();
-
-        for (String filter: filter_list) {
-
-            String url = contexBrokerEndpoint + "?idPattern=urn:ngsi-ld:" + filter + ":" + data.getCityName() + ":*&georel=near;"+ distanceType+":"+data.getRadius()+"&geometry=Point&coords="+data.getPointString()+"&options=concise&limit=" + limit;
-
-            response = restTemplate.exchange(url
-                    , HttpMethod.GET, requestEntity, String.class);
-            List<String> responseArr = Arrays.asList(response.getBody());
-            GeoData.addAll(responseArr);
-        }
-
-        return GeoData;
-        //return Arrays.asList(response.getBody());
-    }
-
 
     @Override
     public List<String> getFromMultiPointRadius(MultiPointRadius data) throws JsonProcessingException {
-        int limit = 1000;
 
         String distanceType;
 
@@ -206,7 +121,6 @@ public class GeojsonService implements GeojsonClient{
 
         List<String> GeoData= new ArrayList();
 
-        String contexBrokerEndpoint = "https://" + hostContextBroker + ":" + portContextBroker + "/ngsi-ld/v1/entities";
         ResponseEntity<String> response;
         //da sistemare il limit - offset
 
@@ -248,7 +162,6 @@ public class GeojsonService implements GeojsonClient{
 
                         String url = oqb.addConcise().addPointRadiusQuery(distanceType, innerPointRadius.getRadius(), innerPointRadius.getPointString()).get();
 
-                        System.out.println(url);
 
                         response = restTemplate.exchange(url
                                 , HttpMethod.GET, requestEntity, String.class);
@@ -259,8 +172,10 @@ public class GeojsonService implements GeojsonClient{
 
                 }
                 else {
-                    String url = contexBrokerEndpoint + "?idPattern=urn:ngsi-ld:" + filter + ":" + innerPointRadius.getCityName() + ":*&georel=near;" + distanceType + ":" + innerPointRadius.getRadius() + "&geometry=Point&options=concise&coords=" + innerPointRadius.getPointString() + "&limit=" + limit;
 
+                    OrionQueryBuilder oqb = new OrionQueryBuilder();
+
+                    String url = oqb.addIdPattern(filter, innerPointRadius.getCityName()).addPointRadiusQuery(distanceType,innerPointRadius.getRadius(),innerPointRadius.getPointString()).addConcise().get();
                     response = restTemplate.exchange(url
                             , HttpMethod.GET, requestEntity, String.class);
                     List<String> responseArr = Arrays.asList(response.getBody());
@@ -268,6 +183,89 @@ public class GeojsonService implements GeojsonClient{
                 }
             }
 
+        }
+
+        return GeoData;
+        //return Arrays.asList(response.getBody());
+    }
+
+
+    @Override
+    @Deprecated
+    public List<String> getFromPolygon(Polygon data){
+        int limit = 1000;
+
+        //da sistemare
+        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+        headers.add("Accept", "application/geo+json");
+        headers.add("Content-Type", "application/json");
+        headers.add("Access-Control-Allow-Origin", "*");
+        headers.add("Access-Control-Allow-Headers", "*");
+        headers.add("Access-Control-Allow-Methods", "*");
+        
+        
+
+        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+
+        List<String> GeoData= new ArrayList();
+
+        String contexBrokerEndpoint = "https://" + hostContextBroker + ":" + portContextBroker + "/ngsi-ld/v1/entities";
+        ResponseEntity<String> response;
+        //da sistemare il limit - offset
+
+        List<String> filter_list = data.getFilter();
+
+        for (String filter: filter_list) {
+
+            String url = contexBrokerEndpoint + "?idPattern=urn:ngsi-ld:" + filter + ":" + data.getCityName() + ":*&georel=intersects&coords="+data.getPolygonString()+"&geometry=Polygon&options=concise&limit=" + limit;
+
+            response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
+
+            List<String> responseArr = Arrays.asList(response.getBody());
+            GeoData.addAll(responseArr);
+        }
+
+        return GeoData;
+    }
+
+    @Override
+    @Deprecated
+    public List<String> getFromPointRadius(PointRadius data) throws JsonProcessingException {
+        int limit = 1000;
+
+        String distanceType;
+
+
+        //da sistemare
+        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+        headers.add("Accept", "application/geo+json");
+
+        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+        if (data.isExternal()){
+            distanceType = "minDistance";
+        }
+        else{
+            distanceType = "maxDistance";
+        }
+
+        List<String> GeoData= new ArrayList();
+
+        String contexBrokerEndpoint = "https://" + hostContextBroker + ":" + portContextBroker + "/ngsi-ld/v1/entities";
+        ResponseEntity<String> response;
+        //da sistemare il limit - offset
+
+        List<String> filter_list = data.getFilter();
+
+        for (String filter: filter_list) {
+
+            String url = contexBrokerEndpoint + "?idPattern=urn:ngsi-ld:" + filter + ":" + data.getCityName() + ":*&georel=near;"+ distanceType+":"+data.getRadius()+"&geometry=Point&coords="+data.getPointString()+"&options=concise&limit=" + limit;
+
+            response = restTemplate.exchange(url
+                    , HttpMethod.GET, requestEntity, String.class);
+            List<String> responseArr = Arrays.asList(response.getBody());
+            GeoData.addAll(responseArr);
         }
 
         return GeoData;

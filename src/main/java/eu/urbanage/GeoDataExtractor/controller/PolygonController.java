@@ -20,6 +20,7 @@ import java.util.List;
 @CrossOrigin(origins = {"https://geodata-extractor-ui.dev.ecosystem-urbanage.eu", "https://geodata-extractor-ui.ecosystem-urbanage.eu", "https://gisviewer.santander.dev.ecosystem-urbanage.eu", "https://gisviewer.santander.ecosystem-urbanage.eu", "http://localhost:4200"})
 @RestController
 @RequestMapping("/api/polygondata")
+@Deprecated
 public class PolygonController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PolygonController.class);

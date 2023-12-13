@@ -9,11 +9,14 @@ import eu.urbanage.GeoDataExtractor.model.Polygon;
 import java.util.List;
 
 public interface GeojsonClient {
+
+    @Deprecated
     List<String> getFromPolygon(Polygon data) throws JsonProcessingException;
 
 
     List<String> getFromMultiPolygon(MultiPolygon data) throws JsonProcessingException;;
 
+    @Deprecated
     List<String> getFromPointRadius(PointRadius data) throws JsonProcessingException;
 
     List<String> getFromMultiPointRadius(MultiPointRadius data) throws JsonProcessingException;
