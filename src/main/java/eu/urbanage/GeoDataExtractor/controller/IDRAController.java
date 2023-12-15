@@ -1,8 +1,6 @@
 package eu.urbanage.GeoDataExtractor.controller;
 
-import eu.urbanage.GeoDataExtractor.model.Cron;
 import eu.urbanage.GeoDataExtractor.model.Document;
-import eu.urbanage.GeoDataExtractor.service.CronService;
 import eu.urbanage.GeoDataExtractor.service.DocumentService;
 import eu.urbanage.GeoDataExtractor.service.IDRAService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 
 @CrossOrigin(origins = {"https://geodata-extractor-ui.dev.ecosystem-urbanage.eu", "https://geodata-extractor-ui.ecosystem-urbanage.eu", "https://gisviewer.santander.dev.ecosystem-urbanage.eu", "https://gisviewer.santander.ecosystem-urbanage.eu", "http://localhost:4200"})
 @RestController

@@ -45,7 +45,6 @@ public class FilterService implements FilterClient{
 
         List<String> filterList = new ArrayList<String>();
 
-        System.out.println(nameNode.get("typeList"));
 
         for(JsonNode filter_node : nameNode.get("typeList")){
 
@@ -56,6 +55,7 @@ public class FilterService implements FilterClient{
 
             try {
                 response = restTemplate.getForEntity(contexBrokerQuery, String.class);
+
             } catch (HttpClientErrorException.NotFound ex) {
                 response = null;
             }
@@ -66,6 +66,27 @@ public class FilterService implements FilterClient{
 
             if (response_size>=1){
                 filterList.add(filter_);
+            }
+            // Else condition Temp for Santander Escalator
+            else {
+
+                //Temp for Santander Escalator
+                OrionQueryBuilder oqbCheckTry = new OrionQueryBuilder(1);
+                String contexBrokerQueryTry = oqbCheckTry.addIdPattern(filter_, city).addGeometryQuery().get();
+
+                try {
+                    response = restTemplate.getForEntity(contexBrokerQueryTry, String.class);
+                } catch (HttpClientErrorException.NotFound exT) {
+                    response = null;
+                }
+
+                JsonNode nameNode_n_try = mapper.readTree(response.getBody());
+
+                int response_size_try = nameNode_n_try.size();
+
+                if (response_size_try >= 1) {
+                    filterList.add(filter_);
+                }
             }
         }
 

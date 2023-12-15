@@ -61,6 +61,12 @@ public class OrionQueryBuilder {
         return this;
     }
 
+    public OrionQueryBuilder addGeometryQuery() {
+        String appendQuery = "&attrs=geometry";
+        urlBuilder.append(appendQuery);
+        return this;
+    }
+
     public String get() {
         return urlBuilder.toString();
     }

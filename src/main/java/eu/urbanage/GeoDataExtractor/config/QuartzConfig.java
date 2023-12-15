@@ -4,9 +4,7 @@ import eu.urbanage.GeoDataExtractor.Job.FilterJob;
 import eu.urbanage.GeoDataExtractor.Job.UserJob;
 import org.quartz.*;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 @Configuration

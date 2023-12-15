@@ -1,7 +1,6 @@
 package eu.urbanage.GeoDataExtractor.Job;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import eu.urbanage.GeoDataExtractor.GeoDataExtractorApplication;
 import eu.urbanage.GeoDataExtractor.service.FilterDocumentService;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;

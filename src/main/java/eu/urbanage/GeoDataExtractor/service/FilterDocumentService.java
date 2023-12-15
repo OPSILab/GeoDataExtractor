@@ -1,10 +1,8 @@
 package eu.urbanage.GeoDataExtractor.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import eu.urbanage.GeoDataExtractor.model.Document;
 import eu.urbanage.GeoDataExtractor.model.FilterDetail;
 import eu.urbanage.GeoDataExtractor.model.FilterDocument;
-import eu.urbanage.GeoDataExtractor.repository.ConfigRepository;
 import eu.urbanage.GeoDataExtractor.repository.FilterRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,9 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class FilterDocumentService {

@@ -1,7 +1,5 @@
 package eu.urbanage.GeoDataExtractor.utils;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.urbanage.GeoDataExtractor.model.GeoJSONFeature;
@@ -10,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 public class GeoJsonUtils {
 
     public static Object mergeFeatureCollections(String geojsonString1, String geojsonString2) {

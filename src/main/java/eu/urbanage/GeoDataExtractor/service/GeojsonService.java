@@ -3,7 +3,6 @@ package eu.urbanage.GeoDataExtractor.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.urbanage.GeoDataExtractor.model.*;
 import eu.urbanage.GeoDataExtractor.utils.OrionQueryBuilder;
-import org.quartz.SimpleTrigger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;

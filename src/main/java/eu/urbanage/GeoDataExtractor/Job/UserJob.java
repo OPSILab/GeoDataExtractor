@@ -1,7 +1,6 @@
 package eu.urbanage.GeoDataExtractor.Job;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import eu.urbanage.GeoDataExtractor.controller.CronController;
 import eu.urbanage.GeoDataExtractor.model.Cron;
 import eu.urbanage.GeoDataExtractor.model.Document;
 import eu.urbanage.GeoDataExtractor.model.MultiPointRadius;

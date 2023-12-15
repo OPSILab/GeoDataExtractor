@@ -1,26 +1,12 @@
 package eu.urbanage.GeoDataExtractor.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.urbanage.GeoDataExtractor.DTO.DatasetDTO;
 import eu.urbanage.GeoDataExtractor.DTO.DistributionDTO;
 import eu.urbanage.GeoDataExtractor.model.Document;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Service
 public class IDRAService{

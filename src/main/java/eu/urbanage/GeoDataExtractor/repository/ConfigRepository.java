@@ -1,7 +1,6 @@
 package eu.urbanage.GeoDataExtractor.repository;
 
 import eu.urbanage.GeoDataExtractor.model.Document;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,14 +1,10 @@
 package eu.urbanage.GeoDataExtractor.service;
 
 import eu.urbanage.GeoDataExtractor.model.Document;
-import eu.urbanage.GeoDataExtractor.model.GeoJSONFeature;
 import eu.urbanage.GeoDataExtractor.repository.ConfigRepository;
-import org.apache.catalina.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 

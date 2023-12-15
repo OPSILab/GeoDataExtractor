@@ -7,15 +7,6 @@ import java.util.List;
 
 public class DatasetDTO {
 
-    //String id, String title, String description, String distribId
-
-    /*
-        data.put("datasetDescription", distribdescrOBJ);
-        data.put("datasetDistribution", distribIdOBJ);
-
-     */
-
-
     @JsonProperty("id")
     private String id;
 

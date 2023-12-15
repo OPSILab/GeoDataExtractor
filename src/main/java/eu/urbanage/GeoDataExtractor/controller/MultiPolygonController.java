@@ -3,7 +3,6 @@ package eu.urbanage.GeoDataExtractor.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.urbanage.GeoDataExtractor.model.MultiPolygon;
-import eu.urbanage.GeoDataExtractor.model.Polygon;
 import eu.urbanage.GeoDataExtractor.service.GeojsonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
