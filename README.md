@@ -33,10 +33,5 @@ Extraction of filters and geospatial data from ORION CB.
 
 Management of saved searches on supporting mongodb via CRUD operations (create edit and delete)
 
-# Future features
+Ability to upload and display custom geojson.
 
-The following features will be available in future releases:
-
-Ability to upload and display custom geojson, currently this functionality is available via graphical example on Helsinki municipality.
-
-Input of multiple polygons to perform the search.
