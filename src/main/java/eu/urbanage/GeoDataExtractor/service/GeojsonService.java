@@ -83,6 +83,8 @@ public class GeojsonService implements GeojsonClient{
 
                         String url = oqb.addConcise().addPolygonQuery(innerPolygon.getPolygonString()).get();
 
+                        System.out.println(url);
+
                         response = restTemplate.exchange(url
                                 , HttpMethod.GET, requestEntity, String.class);
                         List<String> responseArr = Arrays.asList(response.getBody());

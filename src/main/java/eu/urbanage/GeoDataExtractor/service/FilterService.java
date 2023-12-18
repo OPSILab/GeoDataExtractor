@@ -67,6 +67,8 @@ public class FilterService implements FilterClient{
             if (response_size>=1){
                 filterList.add(filter_);
             }
+
+            /*
             // Else condition Temp for Santander Escalator
             else {
 
@@ -88,6 +90,7 @@ public class FilterService implements FilterClient{
                     filterList.add(filter_);
                 }
             }
+            */
         }
 
         return filterList;
