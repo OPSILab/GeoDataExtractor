@@ -15,6 +15,7 @@ import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -31,6 +32,10 @@ public class UserJob implements Job {
 
     @Autowired
     protected DocumentService ds;
+
+    @Autowired
+    protected GeojsonService geoserv;
+
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FilterJob.class);
     @Override
@@ -57,7 +62,6 @@ public class UserJob implements Job {
 
             if (differenzaInOre>=scheduled) {
 
-                GeojsonService geoserv = new GeojsonService();
 
                 MultiPolygon testMP = new MultiPolygon();
 

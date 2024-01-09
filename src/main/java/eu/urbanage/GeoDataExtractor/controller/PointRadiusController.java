@@ -5,6 +5,8 @@ import eu.urbanage.GeoDataExtractor.model.PointRadius;
 import eu.urbanage.GeoDataExtractor.service.GeojsonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,12 +22,14 @@ import java.util.List;
 @Deprecated
 public class PointRadiusController {
 
+
+    @Autowired
+    private GeojsonService gs;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(PointRadiusController.class);
 
     @PostMapping("/")
     public ResponseEntity<String> postPointRadius(@RequestBody PointRadius pointrad) throws JsonProcessingException {
-
-        GeojsonService gs = new GeojsonService();
 
         List<String> test = gs.getFromPointRadius(pointrad);
 

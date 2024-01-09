@@ -8,6 +8,8 @@ import eu.urbanage.GeoDataExtractor.service.FilterService;
 import eu.urbanage.GeoDataExtractor.service.GeojsonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +25,11 @@ import java.util.List;
 @Deprecated
 public class PolygonController {
 
+    @Autowired
+    private GeojsonService gs;
+
+
+
     private static final Logger LOGGER = LoggerFactory.getLogger(PolygonController.class);
 
     @PostMapping("/")
@@ -34,8 +41,7 @@ public class PolygonController {
             // Converting the JSON string back to a Polygon object
             ObjectMapper objectMapper = new ObjectMapper();
             Polygon polygon = objectMapper.readValue(polygonJson, Polygon.class);
-            
-            GeojsonService gs = new GeojsonService();
+
     
             List<String> test = gs.getFromPolygon(polygon);
     

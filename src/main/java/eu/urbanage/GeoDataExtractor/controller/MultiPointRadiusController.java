@@ -6,6 +6,8 @@ import eu.urbanage.GeoDataExtractor.model.MultiPointRadius;
 import eu.urbanage.GeoDataExtractor.service.GeojsonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +18,9 @@ import java.util.List;
 @RequestMapping("/api/multipointradiusdata")
 public class MultiPointRadiusController {
 
+    @Autowired
+    private GeojsonService gs;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(MultiPointRadiusController.class);
 
     @PostMapping("/")
@@ -25,9 +30,7 @@ public class MultiPointRadiusController {
             // Converting the JSON string back to a Polygon object
             ObjectMapper objectMapper = new ObjectMapper();
             MultiPointRadius multiPoint = objectMapper.readValue(pointRadiusJson, MultiPointRadius.class);
-            
-            GeojsonService gs = new GeojsonService();
-    
+
             List<String> test = gs.getFromMultiPointRadius(multiPoint);
     
             return ResponseEntity.ok().body(test.toString());

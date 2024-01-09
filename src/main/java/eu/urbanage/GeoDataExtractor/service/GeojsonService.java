@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -15,10 +16,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Service
 public class GeojsonService implements GeojsonClient{
 
 
     RestTemplate restTemplate = new RestTemplate();
+
     @Value("${HOST_ORION}")
     private String hostContextBroker;
 
@@ -28,8 +31,6 @@ public class GeojsonService implements GeojsonClient{
         this.hostContextBroker = hostContextBroker;
     }
 
-    public GeojsonService() {
-    }
 
     @Override
     public List<String> getFromMultiPolygon(MultiPolygon data){
