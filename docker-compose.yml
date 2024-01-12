@@ -23,7 +23,7 @@ services:
       - '19099:9090'
     environment:
       - SERVER_PORT=9090
-      - HOST_ORION=orion.ecosystem-urbanage.eu
+      - HOST_ORION=orion.dev.ecosystem-urbanage.eu
       - PORT_ORION=443
       - MONGODB_URL=mongodb://mongo
     networks:
@@ -35,10 +35,10 @@ services:
       - traefik.port=19099
       - "traefik.http.middlewares.geodataextractorcors.headers.accesscontrolallowmethods=GET,OPTIONS,PUT,POST,DELETE"
       - "traefik.http.middlewares.geodataextractorcors.headers.accesscontrolallowheaders=*"
-      - "traefik.http.middlewares.geodataextractorcors.headers.accesscontrolalloworiginlist=https://geodata-extractor-ui.${BASE_URL},https://gisviewer.santander.dev.ecosystem-urbanage.eu,https://ui.ecosystem-urbanage.eu"
+      - "traefik.http.middlewares.geodataextractorcors.headers.accesscontrolalloworiginlist=https://geodata-extractor-ui.${BASE_URL},https://gisviewer.santander.dev.ecosystem-urbanage.eu,https://ui.dev.ecosystem-urbanage.eu"
       - "traefik.http.middlewares.geodataextractorcors.headers.accesscontrolmaxage=100"
       - "traefik.http.middlewares.geodataextractorcors.headers.addvaryheader=true"
-      - "traefik.http.middlewares.geodataextractorcors.headers.customResponseHeaders.Access-Control-Allow-Origin=https://geodata-extractor-ui.${BASE_URL},https://gisviewer.santander.dev.ecosystem-urbanage.eu,https://ui.ecosystem-urbanage.eu"
+      - "traefik.http.middlewares.geodataextractorcors.headers.customResponseHeaders.Access-Control-Allow-Origin=https://geodata-extractor-ui.${BASE_URL},https://gisviewer.santander.dev.ecosystem-urbanage.eu,https://ui.dev.ecosystem-urbanage.eu"
       - "traefik.http.routers.geodata-extractor.middlewares=geodataextractorcors"
     profiles:
       - prod
@@ -69,10 +69,10 @@ services:
       - traefik.port=19099
       - "traefik.http.middlewares.geodataextractorcors.headers.accesscontrolallowmethods=GET,OPTIONS,PUT,POST,DELETE"
       - "traefik.http.middlewares.geodataextractorcors.headers.accesscontrolallowheaders=*"
-      - "traefik.http.middlewares.geodataextractorcors.headers.accesscontrolalloworiginlist=https://geodata-extractor-ui.${BASE_URL},https://gisviewer.santander.dev.ecosystem-urbanage.eu,https://ui.ecosystem-urbanage.eu"
+      - "traefik.http.middlewares.geodataextractorcors.headers.accesscontrolalloworiginlist=https://geodata-extractor-ui.${BASE_URL},https://gisviewer.santander.ecosystem-urbanage.eu,https://ui.ecosystem-urbanage.eu"
       - "traefik.http.middlewares.geodataextractorcors.headers.accesscontrolmaxage=100"
       - "traefik.http.middlewares.geodataextractorcors.headers.addvaryheader=true"
-      - "traefik.http.middlewares.geodataextractorcors.headers.customResponseHeaders.Access-Control-Allow-Origin=https://geodata-extractor-ui.${BASE_URL},https://gisviewer.santander.dev.ecosystem-urbanage.eu,https://ui.ecosystem-urbanage.eu"
+      - "traefik.http.middlewares.geodataextractorcors.headers.customResponseHeaders.Access-Control-Allow-Origin=https://geodata-extractor-ui.${BASE_URL},https://gisviewer.santander.ecosystem-urbanage.eu,https://ui.ecosystem-urbanage.eu"
       - "traefik.http.routers.geodata-extractor.middlewares=geodataextractorcors"
     profiles:
       - dev
