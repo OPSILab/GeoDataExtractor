@@ -23,9 +23,10 @@ services:
       - '19099:9090'
     environment:
       - SERVER_PORT=9090
-      - HOST_ORION=orion.dev.ecosystem-urbanage.eu
+      - HOST_ORION=https://orion.ecosystem-urbanage.eu
       - PORT_ORION=443
       - MONGODB_URL=mongodb://mongo
+      - PLATFORM=prod
     networks:
       - web
     labels:
@@ -56,10 +57,10 @@ services:
       - '19099:9090'
     environment:
       - SERVER_PORT=9090
-      - HOST_ORION=orion.ecosystem-urbanage.eu
+      - HOST_ORION=https://orion.dev.ecosystem-urbanage.eu
       - PORT_ORION=443
       - MONGODB_URL=mongodb://mongo
-      - PLATFORM=prod
+      - PLATFORM=dev
     networks:
       - web
     labels:
