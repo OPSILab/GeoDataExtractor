@@ -16,7 +16,7 @@ deploy-on-dev:
     - ssh-keyscan $IP >> ~/.ssh/known_hosts
     - export DOCKER_HOST=ssh://urbng@$IP
   script:
-    - docker compose up -d --build --force-recreate
+    - docker compose --profile dev up -d --build --force-recreate
   tags:
     - ilab
   rules:
@@ -34,7 +34,7 @@ deploy-on-prod:
     - ssh-keyscan $IP >> ~/.ssh/known_hosts
     - export DOCKER_HOST=ssh://urbng@$IP
   script:
-    - docker compose up -d --build --force-recreate
+    - docker compose up --profile prod -d --build --force-recreate
   tags:
     - ilab
   rules:
