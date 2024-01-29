@@ -23,7 +23,9 @@ services:
       - '9090:9090'
     environment:
       - SERVER_PORT=9090
+      - SERVER_URL=http://localhost
       - HOST_ORION=https://orion.ecosystem-urbanage.eu
+      - HOST_NGSIBROKER= https://ngsi-broker.dev.ecosystem-urbanage.eu
       - MONGODB_URL=mongodb://mongo
       - PLATFORM=prod #prod
 

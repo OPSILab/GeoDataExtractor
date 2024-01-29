@@ -13,7 +13,6 @@ public interface GeojsonClient {
     @Deprecated
     List<String> getFromPolygon(Polygon data) throws JsonProcessingException;
 
-
     List<String> getFromMultiPolygon(MultiPolygon data) throws JsonProcessingException;;
 
     @Deprecated
