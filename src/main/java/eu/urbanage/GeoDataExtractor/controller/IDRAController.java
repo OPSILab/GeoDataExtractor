@@ -37,9 +37,9 @@ public class IDRAController {
 
             Document selDoc = ds.findDocument(id).getBody();
 
-            is.postOnIDRA(selDoc);
+            int idraRespone = is.postOnIDRA(selDoc);
 
-            return ResponseEntity.ok(id);
+            return ResponseEntity.status(idraRespone).body(id);
 
         } catch (Exception e) {
             LOGGER.error(id, e);

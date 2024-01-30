@@ -1,17 +1,25 @@
 package eu.urbanage.GeoDataExtractor.service;
 
+import com.fasterxml.jackson.databind.JsonSerializer;
 import eu.urbanage.GeoDataExtractor.DTO.DatasetDTO;
 import eu.urbanage.GeoDataExtractor.DTO.DistributionDTO;
+import eu.urbanage.GeoDataExtractor.GeoDataExtractorApplication;
 import eu.urbanage.GeoDataExtractor.model.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 
 @Service
 public class IDRAService{
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(IDRAService.class);
 
     @Value("${HOST_NGSIBROKER}")
     private String hostNGSIBroker;
@@ -27,7 +35,7 @@ public class IDRAService{
         this.serverURL=serverURL;
     }
 
-    public void postOnIDRA(Document postDocument){
+    public int postOnIDRA(Document postDocument){
 
         String distributionIDR = hostNGSIBroker+ "/api/distributiondcatap";
 
@@ -38,10 +46,14 @@ public class IDRAService{
 
 
         DistributionDTO distributionBody = new DistributionDTO(postDocument.getId(), postDocument.getCityName(), postDocument.getDescription(), downloadURL);
-
-        ResponseEntity<String> responseEntity = restTemplate.postForEntity(distributionIDR, distributionBody, String.class);
-        System.out.println(responseEntity.getBody());
-        System.out.println(responseEntity.getStatusCode());
+        try {
+            ResponseEntity<String> responseEntity = restTemplate.postForEntity(distributionIDR, distributionBody, String.class);
+            LOGGER.info(responseEntity.getStatusCode().toString());
+        }
+        catch (HttpClientErrorException e) {
+            HttpStatusCode status = e.getStatusCode();
+            LOGGER.warn(status.toString());
+        }
 
         String datasetId = postDocument.getCityName() + ":" + postDocument.getId();
 
@@ -49,9 +61,20 @@ public class IDRAService{
 
 
         String datasetIDR = hostNGSIBroker + "/api/dataset";
-        ResponseEntity<String> responseEntityDataset = restTemplate.postForEntity(datasetIDR, datasetBody, String.class);
 
-        System.out.println(responseEntityDataset.getStatusCode());
+        try {
+        ResponseEntity<String> responseEntityDataset = restTemplate.postForEntity(datasetIDR, datasetBody, String.class);
+        HttpStatusCode statusDataset = responseEntityDataset.getStatusCode();
+        LOGGER.info(statusDataset.toString());
+        return statusDataset.value();
+        }
+        catch (HttpClientErrorException e) {
+            HttpStatusCode status = e.getStatusCode();
+            LOGGER.warn(status.toString());
+            return status.value();
+
+        }
+
 
     }
 
