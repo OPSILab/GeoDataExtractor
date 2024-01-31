@@ -46,6 +46,8 @@ public class DocumentController {
 
         docJson.setUserEmail(String.valueOf(userInfo.get("email")));
 
+        docJson.setOnIDRA(false);
+
         docJson.setDateCreation(new Date());
 
 

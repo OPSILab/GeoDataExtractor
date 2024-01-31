@@ -5,8 +5,10 @@ import eu.urbanage.GeoDataExtractor.DTO.DatasetDTO;
 import eu.urbanage.GeoDataExtractor.DTO.DistributionDTO;
 import eu.urbanage.GeoDataExtractor.GeoDataExtractorApplication;
 import eu.urbanage.GeoDataExtractor.model.Document;
+import eu.urbanage.GeoDataExtractor.repository.ConfigRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -20,6 +22,9 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class IDRAService{
     private static final Logger LOGGER = LoggerFactory.getLogger(IDRAService.class);
+
+    @Autowired
+    protected ConfigRepository dRepo;
 
     @Value("${HOST_NGSIBROKER}")
     private String hostNGSIBroker;

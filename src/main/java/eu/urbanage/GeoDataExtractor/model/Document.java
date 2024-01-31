@@ -46,6 +46,8 @@ public class Document {
 
     private String cron_id;
 
+    private boolean onIDRA;
+
     public List<Object> getLayers() {
         return layers;
     }
@@ -140,6 +142,14 @@ public class Document {
 
     public void setSubfilter(List<List<String>> subfilter) {
         this.subfilter = subfilter;
+    }
+
+    public boolean isOnIDRA() {
+        return onIDRA;
+    }
+
+    public void setOnIDRA(boolean onIDRA) {
+        this.onIDRA = onIDRA;
     }
 }
 

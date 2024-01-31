@@ -39,6 +39,11 @@ public class IDRAController {
 
             int idraRespone = is.postOnIDRA(selDoc);
 
+            if (idraRespone==201){
+                selDoc.setOnIDRA(true);
+                ds.updateDocument(selDoc);
+            }
+
             return ResponseEntity.status(idraRespone).body(id);
 
         } catch (Exception e) {
