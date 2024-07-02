@@ -15,20 +15,16 @@ import java.util.Optional;
 @Service
 public class DocumentService {
 
-
     private static final Logger log = LoggerFactory.getLogger(DocumentService.class);
-
 
     @Autowired
     protected ConfigRepository dRepo;
-
 
     public ResponseEntity<Document> findDocument(String id) {
 
         try {
 
             Optional<Document> foundDocument = dRepo.findById(id);
-
 
             if (foundDocument.isPresent()) {
                 return ResponseEntity.ok().body(foundDocument.get());
@@ -41,13 +37,11 @@ public class DocumentService {
         }
     }
 
-
     public ResponseEntity<Object> findDocumentGeojson(String id) {
 
         try {
 
             Optional<Document> foundDocument = dRepo.findById(id);
-
 
             if (foundDocument.isPresent()) {
 
@@ -60,12 +54,12 @@ public class DocumentService {
             return null;
         }
     }
+
     public Document findDocumentObj(String id) {
 
         try {
 
             Optional<Document> foundDocument = dRepo.findById(id);
-
 
             if (foundDocument.isPresent()) {
                 return foundDocument.get();
@@ -77,7 +71,6 @@ public class DocumentService {
             return null;
         }
     }
-
 
     public ResponseEntity<List<Document>> findAllDocumentOfUser(String userID) {
 
@@ -100,14 +93,11 @@ public class DocumentService {
         }
     }
 
-
-
     public ResponseEntity<List<Document>> findAllDocumentByCity(String city) {
 
         try {
 
             List<Document> foundDocuments = dRepo.findBycityName(city);
-
 
             return ResponseEntity.ok().body(foundDocuments);
 
@@ -117,16 +107,11 @@ public class DocumentService {
         }
     }
 
-
-
-
-
     public ResponseEntity<List<Document>> findAllDocument() {
 
         try {
 
             List<Document> foundDocuments = dRepo.findAll();
-
 
             return ResponseEntity.ok().body(foundDocuments);
 
@@ -188,6 +173,7 @@ public class DocumentService {
             return null;
         }
     }
+
     public void updateDocumentFromCron(Document doc) {
 
         String id = doc.getId();
@@ -197,6 +183,5 @@ public class DocumentService {
         dRepo.save(doc);
 
     }
-
 
 }

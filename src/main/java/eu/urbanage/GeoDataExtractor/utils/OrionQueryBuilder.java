@@ -11,11 +11,10 @@ public class OrionQueryBuilder {
         this.urlBuilder = new StringBuilder(baseURL);
     }
 
-
     public OrionQueryBuilder(String baseURL, int limit) {
 
-        String limitString =  String.valueOf(limit);
-        this.urlBuilder = new StringBuilder(baseURL + "/ngsi-ld/v1/entities?limit="+limitString);
+        String limitString = String.valueOf(limit);
+        this.urlBuilder = new StringBuilder(baseURL + "/ngsi-ld/v1/entities?limit=" + limitString);
     }
 
     public OrionQueryBuilder() {
@@ -44,16 +43,18 @@ public class OrionQueryBuilder {
         return this;
     }
 
-
-    //&georel=near;" + distanceType + ":" + innerPointRadius.getRadius() + "&geometry=Point&options=concise&coords=" + innerPointRadius.getPointString() +
+    // &georel=near;" + distanceType + ":" + innerPointRadius.getRadius() +
+    // "&geometry=Point&options=concise&coords=" + innerPointRadius.getPointString()
+    // +
     public OrionQueryBuilder addPointRadiusQuery(String distanceType, String radius, String pointString) {
-        String appendQuery = "&georel=near;" + distanceType + ":" + radius + "&geometry=Point&options=concise&coords=" + pointString;
+        String appendQuery = "&georel=near;" + distanceType + ":" + radius + "&geometry=Point&options=concise&coords="
+                + pointString;
         urlBuilder.append(appendQuery);
         return this;
     }
 
-
-    //&georel=intersects&coords=" + innerPolygon.getPolygonString() + "&geometry=Polygon
+    // &georel=intersects&coords=" + innerPolygon.getPolygonString() +
+    // "&geometry=Polygon
     public OrionQueryBuilder addPolygonQuery(String polygonString) {
         String appendQuery = "&georel=intersects&coords=" + polygonString + "&geometry=Polygon";
         urlBuilder.append(appendQuery);

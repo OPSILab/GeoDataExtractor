@@ -13,7 +13,6 @@ public class FilterDocument {
     @JsonProperty("city")
     private String cityName;
 
-
     @JsonProperty("filter")
     private List<String> filter;
 

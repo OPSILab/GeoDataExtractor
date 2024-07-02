@@ -15,10 +15,10 @@ public class FilterJob implements Job {
     @Autowired
     protected FilterDocumentService fds;
     private static final Logger LOGGER = LoggerFactory.getLogger(FilterJob.class);
+
     @Override
     public void execute(JobExecutionContext context)
-            throws JobExecutionException
-    {
+            throws JobExecutionException {
         LOGGER.info("Start Filter Cron Service");
         try {
             fds.checkFilter();

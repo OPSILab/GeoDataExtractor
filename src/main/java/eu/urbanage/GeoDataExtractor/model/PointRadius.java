@@ -11,14 +11,11 @@ public class PointRadius {
     @JsonProperty("point")
     private Coordinates point;
 
-
     @JsonProperty("radius")
     private String radius;
 
-
     @JsonProperty("filter")
     private List<String> filter;
-
 
     @JsonProperty("city")
     private String cityName;
@@ -48,7 +45,6 @@ public class PointRadius {
     public Coordinates getPoint() {
         return point;
     }
-
 
     public String getPointString() {
         String coordinates = valueOf(point.getLongitude()) + "," + valueOf(point.getLatitude());

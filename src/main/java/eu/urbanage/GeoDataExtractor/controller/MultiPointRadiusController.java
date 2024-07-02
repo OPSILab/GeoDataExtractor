@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = {"https://geodata-extractor-ui.dev.ecosystem-urbanage.eu", "https://geodata-extractor-ui.ecosystem-urbanage.eu", "https://gisviewer.santander.dev.ecosystem-urbanage.eu", "https://gisviewer.santander.ecosystem-urbanage.eu", "http://localhost:4200"})
+@CrossOrigin(origins = { "https://geodata-extractor-ui.dev.ecosystem-urbanage.eu",
+        "https://geodata-extractor-ui.ecosystem-urbanage.eu", "https://gisviewer.santander.dev.ecosystem-urbanage.eu",
+        "https://gisviewer.santander.ecosystem-urbanage.eu", "http://localhost:4200" })
 @RestController
 @RequestMapping("/api/multipointradiusdata")
 public class MultiPointRadiusController {
@@ -31,7 +33,7 @@ public class MultiPointRadiusController {
             MultiPointRadius multiPoint = objectMapper.readValue(pointRadiusJson, MultiPointRadius.class);
 
             List<String> test = gs.getFromMultiPointRadius(multiPoint);
-    
+
             return ResponseEntity.ok().body(test.toString());
 
         } catch (JsonProcessingException e) {

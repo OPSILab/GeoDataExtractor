@@ -16,6 +16,5 @@ public interface FilterRepository extends MongoRepository<FilterDocument, String
 
     FilterDocument save(FilterDocument fdoc);
 
-
     List<FilterDocument> findBycityName(String city);
 }

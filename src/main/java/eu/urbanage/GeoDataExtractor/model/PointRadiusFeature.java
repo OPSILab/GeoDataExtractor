@@ -1,10 +1,8 @@
 package eu.urbanage.GeoDataExtractor.model;
 
-
 public class PointRadiusFeature {
 
     private Coordinates point;
-
 
     private String radius;
 

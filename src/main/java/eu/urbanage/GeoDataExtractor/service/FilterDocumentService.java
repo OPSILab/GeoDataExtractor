@@ -18,13 +18,11 @@ public class FilterDocumentService {
 
     private static final Logger log = LoggerFactory.getLogger(DocumentService.class);
 
-
     @Autowired
     protected FilterRepository fRepo;
 
     @Autowired
-    protected  FilterService fs;
-
+    protected FilterService fs;
 
     public ResponseEntity<FilterDetail> findFilterByCity(String city) {
 
@@ -46,34 +44,30 @@ public class FilterDocumentService {
         }
     }
 
-
-
-
-
     public void updateFilter(List<String> filter_list, String cityName) {
 
-            List<FilterDocument> foundFilter = fRepo.findBycityName(cityName);
+        List<FilterDocument> foundFilter = fRepo.findBycityName(cityName);
 
-            FilterDocument updatedRecord = new FilterDocument();
+        FilterDocument updatedRecord = new FilterDocument();
 
-            updatedRecord.setFilter(filter_list);
-            updatedRecord.setCityName(cityName);
+        updatedRecord.setFilter(filter_list);
+        updatedRecord.setCityName(cityName);
 
-            if (!foundFilter.isEmpty()) {
-                for (FilterDocument presFilter : foundFilter){
-                    String id = presFilter.getId();
-                    fRepo.deleteById(id);
-                }
+        if (!foundFilter.isEmpty()) {
+            for (FilterDocument presFilter : foundFilter) {
+                String id = presFilter.getId();
+                fRepo.deleteById(id);
             }
+        }
 
-            fRepo.save(updatedRecord);
-            }
+        fRepo.save(updatedRecord);
+    }
 
     public void checkFilter() throws JsonProcessingException {
 
         List<String> city_list = getCityList();
 
-        for (String city : city_list){
+        for (String city : city_list) {
 
             List<String> filter_list = fs.getAllCityFilter(city);
 
@@ -82,13 +76,14 @@ public class FilterDocumentService {
         }
 
     }
-    public ResponseEntity<FilterDetail> retriveFilterList(String city){
+
+    public ResponseEntity<FilterDetail> retriveFilterList(String city) {
 
         return findFilterByCity(city);
 
     }
 
-    private List<String> getCityList (){
+    private List<String> getCityList() {
         List<String> stringList = new ArrayList<>();
         stringList.add("Helsinki");
         stringList.add("Flanders");
@@ -101,4 +96,4 @@ public class FilterDocumentService {
         return stringList;
     }
 
-    }
+}

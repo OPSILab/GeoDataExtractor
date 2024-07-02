@@ -20,21 +20,20 @@ public class MultiPolygon {
     @JsonProperty("city")
     private String cityName;
 
-
-    public List<List<Coordinates>>  getMultiPolygon() {
+    public List<List<Coordinates>> getMultiPolygon() {
         return multiPolygon;
     }
 
-
-    public String getMultiPolygonString(){
+    public String getMultiPolygonString() {
         StringBuilder multiPolyString = new StringBuilder("[");
 
-        for (List<Coordinates> polygon: multiPolygon){
+        for (List<Coordinates> polygon : multiPolygon) {
             multiPolyString.append("[");
 
-            for (Coordinates cord : polygon){
+            for (Coordinates cord : polygon) {
 
-                multiPolyString.append("[").append(valueOf(cord.getLongitude())).append(",").append(valueOf(cord.getLatitude())).append("],");
+                multiPolyString.append("[").append(valueOf(cord.getLongitude())).append(",")
+                        .append(valueOf(cord.getLatitude())).append("],");
 
             }
             multiPolyString.deleteCharAt(multiPolyString.length() - 1);
@@ -44,7 +43,7 @@ public class MultiPolygon {
         multiPolyString.deleteCharAt(multiPolyString.length() - 1);
         multiPolyString.append("]");
 
-            return multiPolyString.toString();
+        return multiPolyString.toString();
 
     }
 

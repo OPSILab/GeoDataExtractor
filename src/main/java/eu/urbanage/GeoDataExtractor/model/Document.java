@@ -6,7 +6,6 @@ import org.springframework.data.annotation.Id;
 import java.util.Date;
 import java.util.List;
 
-
 public class Document {
 
     @Id
@@ -148,5 +147,3 @@ public class Document {
         this.onIDRA = onIDRA;
     }
 }
-
-

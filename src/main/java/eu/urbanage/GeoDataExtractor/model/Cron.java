@@ -8,14 +8,12 @@ import java.util.List;
 
 public class Cron {
 
-
     @Id
     @JsonProperty()
     private String id;
 
     @JsonProperty("document_id")
     private String documentID;
-
 
     private String city;
 
@@ -34,7 +32,6 @@ public class Cron {
     @JsonProperty("multipoint")
     private List<PointRadiusFeature> multipoint;
 
-
     public Cron() {
 
         this.data_created = new Date();
@@ -42,7 +39,6 @@ public class Cron {
         this.data_last_execution = new Date();
 
     }
-
 
     public Date getData_created() {
         return data_created;

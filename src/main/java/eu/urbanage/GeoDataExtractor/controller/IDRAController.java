@@ -9,8 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
-@CrossOrigin(origins = {"https://geodata-extractor-ui.dev.ecosystem-urbanage.eu", "https://geodata-extractor-ui.ecosystem-urbanage.eu", "https://gisviewer.santander.dev.ecosystem-urbanage.eu", "https://gisviewer.santander.ecosystem-urbanage.eu", "http://localhost:4200"})
+@CrossOrigin(origins = { "https://geodata-extractor-ui.dev.ecosystem-urbanage.eu",
+        "https://geodata-extractor-ui.ecosystem-urbanage.eu", "https://gisviewer.santander.dev.ecosystem-urbanage.eu",
+        "https://gisviewer.santander.ecosystem-urbanage.eu", "http://localhost:4200" })
 @RestController
 @RequestMapping("/api/idra/")
 public class IDRAController {
@@ -21,11 +22,7 @@ public class IDRAController {
     protected DocumentService ds;
 
     @Autowired
-    protected  IDRAService is;
-
-
-
-
+    protected IDRAService is;
 
     @GetMapping("/{id}")
     public ResponseEntity<String> getCron(@PathVariable() String id) {
@@ -36,7 +33,7 @@ public class IDRAController {
 
             int idraRespone = is.postOnIDRA(selDoc);
 
-            if (idraRespone==201){
+            if (idraRespone == 201) {
                 selDoc.setOnIDRA(true);
                 ds.updateDocument(selDoc);
             }
@@ -48,10 +45,6 @@ public class IDRAController {
             return ResponseEntity.internalServerError().body(null);
         }
 
-
     }
-
-
-
 
 }

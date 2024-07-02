@@ -1,6 +1,5 @@
 package eu.urbanage.GeoDataExtractor.controller;
 
-
 import eu.urbanage.GeoDataExtractor.model.Cron;
 import eu.urbanage.GeoDataExtractor.model.Document;
 import eu.urbanage.GeoDataExtractor.service.CronService;
@@ -13,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
-@CrossOrigin(origins = {"https://geodata-extractor-ui.dev.ecosystem-urbanage.eu", "https://geodata-extractor-ui.ecosystem-urbanage.eu", "https://gisviewer.santander.dev.ecosystem-urbanage.eu", "https://gisviewer.santander.ecosystem-urbanage.eu", "http://localhost:4200"})
+@CrossOrigin(origins = { "https://geodata-extractor-ui.dev.ecosystem-urbanage.eu",
+        "https://geodata-extractor-ui.ecosystem-urbanage.eu", "https://gisviewer.santander.dev.ecosystem-urbanage.eu",
+        "https://gisviewer.santander.ecosystem-urbanage.eu", "http://localhost:4200" })
 @RestController
 @RequestMapping("/api/cron/")
 public class CronController {
@@ -25,7 +26,6 @@ public class CronController {
 
     @Autowired
     protected DocumentService ds;
-
 
     @PostMapping("/set/")
     public String postCron(@RequestBody Cron cronJson) {
@@ -51,9 +51,9 @@ public class CronController {
         return cron_id;
 
     }
-    @PostMapping("/update/")
-    public ResponseEntity<Cron>  updateCron(@RequestBody Cron cronJson) {
 
+    @PostMapping("/update/")
+    public ResponseEntity<Cron> updateCron(@RequestBody Cron cronJson) {
 
         String document_id = cronJson.getDocument_id();
 
@@ -83,7 +83,6 @@ public class CronController {
             return ResponseEntity.internalServerError().body(null);
         }
 
-
     }
 
     @DeleteMapping("/{id}")
@@ -101,12 +100,10 @@ public class CronController {
 
             return cs.deleteCron(cronID);
 
-
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(null);
         }
 
     }
-
 
 }

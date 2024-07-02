@@ -16,28 +16,28 @@ import java.util.Collections;
 @EnableMongoRepositories(basePackages = "eu.urbanage.GeoDataExtractor.repository")
 public class MongoConfig extends AbstractMongoClientConfiguration {
 
-
     /*
-    @Autowired
-    private Environment env;
-
-
-    MongoConfig(@Value("mongodb://mongo") String mongodbUrl, @Value("URBANAGE") String mongodbDatabase)  {
-
-        this.mongodbUrl = env.getProperty("MONGODB_URL");
-
-        String platform = env.getProperty("PLATFORM", "unknow");
-
-        if (platform.equals("dev")){
-            this.mongodbDatabase = "URBANAGE_DEV";
-        }else {
-
-            if (platform.equals("prod")) {
-                this.mongodbDatabase = "URBANAGE_PROD";
-            }
-        }
-    }
-    */
+     * @Autowired
+     * private Environment env;
+     * 
+     * 
+     * MongoConfig(@Value("mongodb://mongo") String mongodbUrl, @Value("URBANAGE")
+     * String mongodbDatabase) {
+     * 
+     * this.mongodbUrl = env.getProperty("MONGODB_URL");
+     * 
+     * String platform = env.getProperty("PLATFORM", "unknow");
+     * 
+     * if (platform.equals("dev")){
+     * this.mongodbDatabase = "URBANAGE_DEV";
+     * }else {
+     * 
+     * if (platform.equals("prod")) {
+     * this.mongodbDatabase = "URBANAGE_PROD";
+     * }
+     * }
+     * }
+     */
     private String mongodbUrl;
     private String mongodbDatabase;
 
@@ -52,7 +52,7 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
             this.mongodbDatabase = "URBANAGE";
         }
     }
-    
+
     @Override
     protected String getDatabaseName() {
         return mongodbDatabase;

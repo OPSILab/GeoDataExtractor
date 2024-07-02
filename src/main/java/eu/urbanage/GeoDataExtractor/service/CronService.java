@@ -16,13 +16,8 @@ public class CronService {
 
     private static final Logger log = LoggerFactory.getLogger(DocumentService.class);
 
-
-
     @Autowired
     protected CronRepository cRepo;
-
-
-
 
     public Cron addCron(Cron cronjob) {
 
@@ -38,8 +33,7 @@ public class CronService {
 
     }
 
-
-    public List<Cron> getAllCron(){
+    public List<Cron> getAllCron() {
 
         return cRepo.findAll();
 
@@ -96,7 +90,6 @@ public class CronService {
 
             Optional<Cron> foundCron = cRepo.findById(id);
 
-
             if (foundCron.isPresent()) {
                 return ResponseEntity.ok().body(foundCron.get());
             }
@@ -107,8 +100,6 @@ public class CronService {
             return null;
         }
     }
-
-
 
     public ResponseEntity<String> deleteCron(String id) {
 
@@ -122,7 +113,5 @@ public class CronService {
             return ResponseEntity.notFound().build();
         }
     }
-
-
 
 }

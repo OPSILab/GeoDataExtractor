@@ -34,9 +34,7 @@ public class DatasetDTO {
 
         this.datasetDistribution = distribIdOBJ;
 
-
     }
-
 
     public String getId() {
         return id;

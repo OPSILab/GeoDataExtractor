@@ -35,8 +35,8 @@ public class UserJob implements Job {
     @Autowired
     protected GeojsonService geoserv;
 
-
     private static final Logger LOGGER = LoggerFactory.getLogger(FilterJob.class);
+
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
 
@@ -55,12 +55,12 @@ public class UserJob implements Job {
 
             int scheduled = selCron.getRepeat();
 
-            LocalDateTime lastExecutionLocal = lastExecution.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+            LocalDateTime lastExecutionLocal = lastExecution.toInstant().atZone(ZoneId.systemDefault())
+                    .toLocalDateTime();
 
             long differenzaInOre = ChronoUnit.HOURS.between(lastExecutionLocal, startJob);
 
-            if (differenzaInOre>=scheduled) {
-
+            if (differenzaInOre >= scheduled) {
 
                 MultiPolygon testMP = new MultiPolygon();
 
@@ -99,5 +99,5 @@ public class UserJob implements Job {
 
         LOGGER.info("End User Cron Service");
 
-        }
+    }
 }

@@ -2,8 +2,7 @@ package eu.urbanage.GeoDataExtractor.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-public class Filter{
+public class Filter {
 
     @JsonProperty("city")
     private String cityName;

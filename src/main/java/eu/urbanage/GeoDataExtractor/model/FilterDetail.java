@@ -6,13 +6,11 @@ import java.util.List;
 
 public class FilterDetail {
 
-
     @JsonProperty("main_filter")
     private List<String> filter;
 
     @JsonProperty("detail_filter")
     private List<String> filter_detail;
-
 
     public List<String> getFilter() {
         return filter;

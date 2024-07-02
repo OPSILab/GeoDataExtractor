@@ -26,18 +26,17 @@ public class Polygon {
     @JsonProperty("city")
     private String cityName;
 
-
     public List<Coordinates> getPolygon() {
         return polygon;
     }
 
-
-    public String getPolygonString(){
+    public String getPolygonString() {
         StringBuilder polystring = new StringBuilder("[[");
 
-        for (Coordinates cord : polygon){
+        for (Coordinates cord : polygon) {
 
-            polystring.append("[").append(valueOf(cord.getLongitude())).append(",").append(valueOf(cord.getLatitude())).append("],");
+            polystring.append("[").append(valueOf(cord.getLongitude())).append(",").append(valueOf(cord.getLatitude()))
+                    .append("],");
 
         }
 

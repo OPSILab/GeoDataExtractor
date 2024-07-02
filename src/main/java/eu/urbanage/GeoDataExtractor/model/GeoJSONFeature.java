@@ -11,7 +11,6 @@ public class GeoJSONFeature {
     private String type;
     private List<Object> features = new ArrayList<>();
 
-
     @JsonProperty("type")
     public String getType() {
         return type;
@@ -30,7 +29,5 @@ public class GeoJSONFeature {
     public void setFeatures(List<Object> features) {
         this.features = features;
     }
-
-
 
 }

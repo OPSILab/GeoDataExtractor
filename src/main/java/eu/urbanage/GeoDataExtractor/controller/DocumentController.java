@@ -17,9 +17,9 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
-
-
-@CrossOrigin(origins = {"https://geodata-extractor-ui.dev.ecosystem-urbanage.eu", "https://geodata-extractor-ui.ecosystem-urbanage.eu", "https://gisviewer.santander.dev.ecosystem-urbanage.eu", "https://gisviewer.santander.ecosystem-urbanage.eu", "http://localhost:4200"})
+@CrossOrigin(origins = { "https://geodata-extractor-ui.dev.ecosystem-urbanage.eu",
+        "https://geodata-extractor-ui.ecosystem-urbanage.eu", "https://gisviewer.santander.dev.ecosystem-urbanage.eu",
+        "https://gisviewer.santander.ecosystem-urbanage.eu", "http://localhost:4200" })
 @RestController
 @RequestMapping("/api/document")
 public class DocumentController {
@@ -50,7 +50,6 @@ public class DocumentController {
 
         docJson.setDateCreation(new Date());
 
-
         ds.addDocument(docJson);
 
         return docJson.getId();
@@ -58,7 +57,7 @@ public class DocumentController {
     }
 
     @PostMapping("/update/")
-    public ResponseEntity<Document>  updateDocument(@RequestBody Document docJson) {
+    public ResponseEntity<Document> updateDocument(@RequestBody Document docJson) {
 
         LOGGER.info("Received document update: " + docJson.getName());
 
@@ -71,7 +70,6 @@ public class DocumentController {
         return ds.updateDocument(docJson);
 
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<Document> getDocument(@PathVariable() String id) {
@@ -86,7 +84,6 @@ public class DocumentController {
         }
 
     }
-
 
     @GetMapping("/getdocuments")
     public ResponseEntity<List<Document>> getAllDocument() {
@@ -105,7 +102,6 @@ public class DocumentController {
         }
 
     }
-
 
     @GetMapping("/getalldocuments/{city}")
     public ResponseEntity<List<Document>> getAllDocumentByCity(@PathVariable() String city) {
@@ -160,7 +156,6 @@ public class DocumentController {
 
             return ds.deleteDocument(id);
 
-
         } catch (Exception e) {
             LOGGER.error(id, e);
             return ResponseEntity.internalServerError().body(null);
@@ -168,37 +163,32 @@ public class DocumentController {
 
     }
 
-
     private String getAuthToken() {
 
         return request.getHeader("Authorization");
 
     }
 
+    public JsonNode decodeUserTokenToJson(String userToken) {
 
+        Base64.Decoder decoder = Base64.getUrlDecoder();
 
-        public JsonNode decodeUserTokenToJson(String userToken) {
+        String[] chunks = userToken.split("\\.");
 
-            Base64.Decoder decoder = Base64.getUrlDecoder();
+        // String header = new String(decoder.decode(chunks[0]));
+        String payload = new String(decoder.decode(chunks[1]));
 
-            String[] chunks = userToken.split("\\.");
+        ObjectMapper mapper = new ObjectMapper();
 
-            //String header = new String(decoder.decode(chunks[0]));
-            String payload = new String(decoder.decode(chunks[1]));
+        try {
+            JsonNode userNode = mapper.readTree(payload);
 
-            ObjectMapper mapper = new ObjectMapper();
+            return userNode;
 
-            try {
-                JsonNode userNode = mapper.readTree(payload);
-
-                return userNode;
-
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
-            }
-
-
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
 
+    }
 
 }
