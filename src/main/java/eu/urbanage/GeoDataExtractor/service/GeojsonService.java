@@ -25,7 +25,7 @@ public class GeojsonService implements GeojsonClient{
     @Value("${HOST_ORION}")
     private String hostContextBroker;
 
-
+    //test
 
     public GeojsonService(@Value("${HOST_ORION}") String hostContextBroker) {
         this.hostContextBroker = hostContextBroker;
