@@ -183,7 +183,7 @@ public class DocumentController {
 
             String[] chunks = userToken.split("\\.");
 
-            String header = new String(decoder.decode(chunks[0]));
+            //String header = new String(decoder.decode(chunks[0]));
             String payload = new String(decoder.decode(chunks[1]));
 
             ObjectMapper mapper = new ObjectMapper();

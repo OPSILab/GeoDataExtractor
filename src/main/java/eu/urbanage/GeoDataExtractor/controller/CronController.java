@@ -5,7 +5,6 @@ import eu.urbanage.GeoDataExtractor.model.Cron;
 import eu.urbanage.GeoDataExtractor.model.Document;
 import eu.urbanage.GeoDataExtractor.service.CronService;
 import eu.urbanage.GeoDataExtractor.service.DocumentService;
-import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +25,6 @@ public class CronController {
 
     @Autowired
     protected DocumentService ds;
-
-    @Autowired
-    private HttpServletRequest request;
 
 
     @PostMapping("/set/")

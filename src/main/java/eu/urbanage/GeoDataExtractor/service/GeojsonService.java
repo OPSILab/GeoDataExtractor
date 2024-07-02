@@ -33,7 +33,6 @@ public class GeojsonService implements GeojsonClient{
     @Override
     public List<String> getFromMultiPolygon(MultiPolygon data){
 
-        //da sistemare
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
         headers.add("Accept", "application/geo+json");
         headers.add("Content-Type", "application/json");
@@ -45,7 +44,7 @@ public class GeojsonService implements GeojsonClient{
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 
 
-        List<String> GeoData= new ArrayList();
+        List<String> GeoData= new ArrayList<String>();
 
         ResponseEntity<String> response;
         //da sistemare il limit - offset
@@ -118,7 +117,7 @@ public class GeojsonService implements GeojsonClient{
 
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 
-        List<String> GeoData= new ArrayList();
+        List<String> GeoData= new ArrayList<String>();
 
         ResponseEntity<String> response;
         //da sistemare il limit - offset

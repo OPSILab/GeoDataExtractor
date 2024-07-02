@@ -3,8 +3,6 @@ package eu.urbanage.GeoDataExtractor.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.urbanage.GeoDataExtractor.model.MultiPointRadius;
 import eu.urbanage.GeoDataExtractor.model.MultiPolygon;
-import eu.urbanage.GeoDataExtractor.model.PointRadius;
-import eu.urbanage.GeoDataExtractor.model.Polygon;
 
 import java.util.List;
 
