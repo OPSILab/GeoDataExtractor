@@ -3,7 +3,6 @@ package eu.urbanage.GeoDataExtractor.model;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.data.annotation.Id;
 
 import static java.lang.String.valueOf;
 

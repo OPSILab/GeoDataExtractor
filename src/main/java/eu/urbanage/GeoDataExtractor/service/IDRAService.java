@@ -1,21 +1,17 @@
 package eu.urbanage.GeoDataExtractor.service;
 
-import com.fasterxml.jackson.databind.JsonSerializer;
 import eu.urbanage.GeoDataExtractor.DTO.DatasetDTO;
 import eu.urbanage.GeoDataExtractor.DTO.DistributionDTO;
-import eu.urbanage.GeoDataExtractor.GeoDataExtractorApplication;
 import eu.urbanage.GeoDataExtractor.model.Document;
 import eu.urbanage.GeoDataExtractor.repository.ConfigRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 

@@ -1,89 +1,27 @@
-version: '3.5'
 services:
+  mongo:
+    image: mongo:4.2.11
+    restart: always
+    command: --nojournal
+    ports:
+      - 27027:27017
+    volumes:
+      - './mongo_data:/data/db'
 
-
-  # mongo:
-  #   image: mongo:4.2.11
-  #   restart: always
-  #   command: --nojournal
-  #   ports:
-  #     - 27027:27017
-  #   volumes:
-  #     - './mongo_data:/data/db'
-
-  geodata-be-prod:
-    # image: geodata-be:main
+  geodata-be:
+    image: geodata-be:main
     container_name: "geodata-be"
     build:
       context: .
-    # depends_on:
-    #   - mongo
+    depends_on:
+      - mongo
     restart: always
     ports:
-      - '19099:9090'
+      - '9090:9090'
     environment:
       - SERVER_PORT=9090
-      - SERVER_URL=https://geodata-extractor.ecosystem-urbanage.eu
-      - HOST_ORION=https://orion.ecosystem-urbanage.eu
-      - HOST_NGSIBROKER=https://ngsi-broker.ecosystem-urbanage.eu
-      - PORT_ORION=443
-      - MONGODB_URL=mongodb://mongo
-      - PLATFORM=prod
-    networks:
-      - web
-    labels:
-      - traefik.http.routers.geodata-extractor.rule=Host(`geodata-extractor.${BASE_URL}`)
-      - traefik.http.routers.geodata-extractor.tls=true
-      - traefik.http.routers.geodata-extractor.tls.certresolver=lets-encrypt
-      - traefik.port=19099
-      - "traefik.http.middlewares.geodataextractorcors.headers.accesscontrolallowmethods=GET,OPTIONS,PUT,POST,DELETE"
-      - "traefik.http.middlewares.geodataextractorcors.headers.accesscontrolallowheaders=*"
-      - "traefik.http.middlewares.geodataextractorcors.headers.accesscontrolalloworiginlist=https://geodata-extractor-ui.${BASE_URL},https://gisviewer.santander.dev.ecosystem-urbanage.eu,https://ui.dev.ecosystem-urbanage.eu"
-      - "traefik.http.middlewares.geodataextractorcors.headers.accesscontrolmaxage=100"
-      - "traefik.http.middlewares.geodataextractorcors.headers.addvaryheader=true"
-      - "traefik.http.middlewares.geodataextractorcors.headers.customResponseHeaders.Access-Control-Allow-Origin=https://geodata-extractor-ui.${BASE_URL},https://gisviewer.santander.dev.ecosystem-urbanage.eu,https://ui.dev.ecosystem-urbanage.eu"
-      - "traefik.http.routers.geodata-extractor.middlewares=geodataextractorcors"
-    profiles:
-      - prod
-
-
-  geodata-be-dev:
-    # image: geodata-be:main
-    container_name: "geodata-be"
-    build:
-      context: .
-    # depends_on:
-    #   - mongo
-    restart: always
-    ports:
-      - '19099:9090'
-    environment:
-      - SERVER_PORT=9090
-      - SERVER_URL=https://geodata-extractor.dev.ecosystem-urbanage.eu
+      - SERVER_URL=http://localhost
       - HOST_ORION=https://orion.dev.ecosystem-urbanage.eu
       - HOST_NGSIBROKER=https://ngsi-broker.dev.ecosystem-urbanage.eu
-      - PORT_ORION=443
       - MONGODB_URL=mongodb://mongo
-      - PLATFORM=dev
-    networks:
-      - web
-    labels:
-      - traefik.http.routers.geodata-extractor.rule=Host(`geodata-extractor.${BASE_URL}`)
-      - traefik.http.routers.geodata-extractor.tls=true
-      - traefik.http.routers.geodata-extractor.tls.certresolver=lets-encrypt
-      - traefik.port=19099
-      - "traefik.http.middlewares.geodataextractorcors.headers.accesscontrolallowmethods=GET,OPTIONS,PUT,POST,DELETE"
-      - "traefik.http.middlewares.geodataextractorcors.headers.accesscontrolallowheaders=*"
-      - "traefik.http.middlewares.geodataextractorcors.headers.accesscontrolalloworiginlist=https://geodata-extractor-ui.${BASE_URL},https://gisviewer.santander.ecosystem-urbanage.eu,https://ui.ecosystem-urbanage.eu"
-      - "traefik.http.middlewares.geodataextractorcors.headers.accesscontrolmaxage=100"
-      - "traefik.http.middlewares.geodataextractorcors.headers.addvaryheader=true"
-      - "traefik.http.middlewares.geodataextractorcors.headers.customResponseHeaders.Access-Control-Allow-Origin=https://geodata-extractor-ui.${BASE_URL},https://gisviewer.santander.ecosystem-urbanage.eu,https://ui.ecosystem-urbanage.eu"
-      - "traefik.http.routers.geodata-extractor.middlewares=geodataextractorcors"
-    profiles:
-      - dev
-
-networks:
-  web:
-    external: true
-
-
+      - PLATFORM=dev #prod

@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-import static java.lang.String.valueOf;
-
 public class MultiPointRadius {
 
     @JsonProperty("multipoint")

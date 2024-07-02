@@ -1,6 +1,5 @@
 package eu.urbanage.GeoDataExtractor.utils;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component

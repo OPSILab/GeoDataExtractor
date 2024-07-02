@@ -1,11 +1,7 @@
 package eu.urbanage.GeoDataExtractor.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.v3.core.util.Json;
-import org.bson.json.JsonObject;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.Date;
 import java.util.List;
